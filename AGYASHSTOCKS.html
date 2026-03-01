@@ -3,1947 +3,801 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AGYASHstocks — Smart Learning, Real Results</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>AGYASHCourse — Learn Without Limits</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #080c14;
-  --bg2: #0d1220;
-  --bg3: #111827;
-  --surface: #161e2e;
-  --surface2: #1e293b;
-  --border: rgba(255,255,255,0.07);
-  --border2: rgba(255,255,255,0.12);
-  --cyan: #00e5ff;
-  --cyan-dim: rgba(0,229,255,0.15);
-  --green: #00ff88;
-  --green-dim: rgba(0,255,136,0.12);
-  --orange: #ff6b35;
-  --orange-dim: rgba(255,107,53,0.12);
-  --pink: #ff3cac;
-  --yellow: #ffd60a;
-  --white: #f0f4ff;
-  --muted: #64748b;
-  --muted2: #94a3b8;
-  --radius: 6px;
-  --radius-lg: 14px;
-  --radius-xl: 20px;
-  --shadow-cyan: 0 0 30px rgba(0,229,255,0.15);
-  --shadow-green: 0 0 30px rgba(0,255,136,0.12);
-  --font-head: 'Syne', sans-serif;
-  --font-body: 'Instrument Sans', sans-serif;
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: var(--font-body);
-  background: var(--bg);
-  color: var(--white);
-  overflow-x: hidden;
-  cursor: none;
-}
-
-/* ── CUSTOM CURSOR ── */
-.cursor {
-  width: 10px; height: 10px;
-  background: var(--cyan);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 99999;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s, background 0.2s;
-  mix-blend-mode: screen;
-}
-.cursor-ring {
-  width: 36px; height: 36px;
-  border: 1.5px solid rgba(0,229,255,0.5);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 99998;
-  transform: translate(-50%, -50%);
-  transition: width 0.3s, height 0.3s, transform 0.1s;
-}
-body:has(button:hover) .cursor,
-body:has(a:hover) .cursor { width: 16px; height: 16px; background: var(--green); }
-
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 2px; }
-
-/* ── GRID BG ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ── NAV ── */
-nav {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: rgba(8,12,20,0.85);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  padding: 0 32px;
-}
-.nav-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-.logo {
-  font-family: var(--font-head);
-  font-weight: 800;
-  font-size: 1.35rem;
-  letter-spacing: -0.5px;
-  color: var(--white);
-  flex-shrink: 0;
-}
-.logo span {
-  color: var(--cyan);
-  text-shadow: 0 0 20px var(--cyan);
-}
-
-.search-wrap {
-  flex: 1;
-  max-width: 420px;
-  position: relative;
-}
-.search-wrap input {
-  width: 100%;
-  padding: 9px 16px 9px 40px;
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: 50px;
-  color: var(--white);
-  font-family: var(--font-body);
-  font-size: 0.87rem;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-.search-wrap input:focus {
-  border-color: var(--cyan);
-  box-shadow: 0 0 0 3px rgba(0,229,255,0.1);
-}
-.search-wrap input::placeholder { color: var(--muted); }
-.search-icon {
-  position: absolute;
-  left: 13px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--muted);
-  pointer-events: none;
-}
-.search-drop {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0; right: 0;
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  display: none;
-  z-index: 500;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-}
-.search-drop.open { display: block; }
-.sdrop-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 11px 16px;
-  cursor: pointer;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.15s;
-}
-.sdrop-item:last-child { border: none; }
-.sdrop-item:hover { background: var(--surface2); }
-.sdrop-badge {
-  font-size: 0.68rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  padding: 2px 8px;
-  border-radius: 50px;
-  white-space: nowrap;
-}
-.sdrop-name { font-size: 0.87rem; color: var(--white); flex: 1; }
-.sdrop-price { font-size: 0.87rem; font-weight: 600; color: var(--cyan); white-space: nowrap; }
-
-.nav-links {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.nav-link {
-  font-size: 0.85rem;
-  color: var(--muted2);
-  padding: 7px 14px;
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: color 0.2s, background 0.2s;
-  white-space: nowrap;
-}
-.nav-link:hover { color: var(--white); background: var(--surface); }
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 9px 20px;
-  border-radius: var(--radius);
-  font-size: 0.85rem;
-  font-weight: 600;
-  font-family: var(--font-body);
-  cursor: pointer;
-  border: none;
-  transition: all 0.2s;
-  letter-spacing: 0.1px;
-  white-space: nowrap;
-}
-.btn-cyan {
-  background: var(--cyan);
-  color: var(--bg);
-}
-.btn-cyan:hover {
-  box-shadow: 0 0 25px rgba(0,229,255,0.45);
-  transform: translateY(-1px);
-}
-.btn-ghost {
-  background: transparent;
-  color: var(--white);
-  border: 1px solid var(--border2);
-}
-.btn-ghost:hover {
-  border-color: var(--cyan);
-  color: var(--cyan);
-}
-.btn-green {
-  background: var(--green);
-  color: var(--bg);
-}
-.btn-green:hover {
-  box-shadow: 0 0 25px rgba(0,255,136,0.4);
-  transform: translateY(-1px);
-}
-.btn-surface {
-  background: var(--surface2);
-  color: var(--white);
-  border: 1px solid var(--border2);
-}
-.btn-surface:hover { background: var(--surface); border-color: var(--cyan); color: var(--cyan); }
-
-.cart-btn {
-  position: relative;
-  padding: 9px 14px;
-}
-.cart-count {
-  position: absolute;
-  top: -5px; right: -5px;
-  width: 18px; height: 18px;
-  background: var(--orange);
-  color: var(--white);
-  font-size: 0.68rem;
-  font-weight: 700;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ── HERO ── */
-.hero {
-  position: relative;
-  padding: 100px 32px 120px;
-  overflow: hidden;
-  z-index: 1;
-}
-.hero-glow {
-  position: absolute;
-  width: 700px; height: 700px;
-  border-radius: 50%;
-  filter: blur(120px);
-  pointer-events: none;
-  animation: glowPulse 6s ease-in-out infinite;
-}
-.hero-glow-1 {
-  background: rgba(0,229,255,0.08);
-  top: -200px; right: -100px;
-}
-.hero-glow-2 {
-  background: rgba(0,255,136,0.06);
-  bottom: -200px; left: -100px;
-  animation-delay: 3s;
-}
-@keyframes glowPulse {
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.05); }
-}
-
-.hero-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-
-.hero-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--cyan);
-  padding: 6px 14px;
-  background: var(--cyan-dim);
-  border: 1px solid rgba(0,229,255,0.2);
-  border-radius: 50px;
-  margin-bottom: 24px;
-  animation: fadeUp 0.6s ease both;
-}
-.hero-tag::before {
-  content: '';
-  width: 6px; height: 6px;
-  background: var(--cyan);
-  border-radius: 50%;
-  box-shadow: 0 0 8px var(--cyan);
-  animation: blink 1.4s ease infinite;
-}
-@keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
-
-.hero h1 {
-  font-family: var(--font-head);
-  font-size: clamp(2.4rem, 4.5vw, 4rem);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -1px;
-  margin-bottom: 22px;
-  animation: fadeUp 0.6s 0.1s ease both;
-}
-.hero h1 .hl-cyan { color: var(--cyan); text-shadow: 0 0 30px rgba(0,229,255,0.4); }
-.hero h1 .hl-green { color: var(--green); text-shadow: 0 0 30px rgba(0,255,136,0.4); }
-
-.hero p {
-  font-size: 1.05rem;
-  line-height: 1.75;
-  color: var(--muted2);
-  margin-bottom: 36px;
-  max-width: 500px;
-  animation: fadeUp 0.6s 0.2s ease both;
-}
-.hero-actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  animation: fadeUp 0.6s 0.3s ease both;
-}
-
-.hero-pills {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 40px;
-  animation: fadeUp 0.6s 0.4s ease both;
-}
-.pill {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.78rem;
-  color: var(--muted2);
-  padding: 5px 12px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 50px;
-}
-.pill-dot { width: 6px; height: 6px; border-radius: 50%; }
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Hero right — floating cards */
-.hero-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  animation: fadeUp 0.7s 0.2s ease both;
-}
-.hcard {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius-lg);
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s, border-color 0.3s;
-  cursor: default;
-}
-.hcard:hover { transform: translateY(-4px); }
-.hcard::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-}
-.hcard.c1::after { background: var(--cyan); }
-.hcard.c2::after { background: var(--green); }
-.hcard.c3::after { background: var(--orange); }
-.hcard.c4::after { background: var(--pink); }
-.hcard.c2, .hcard.c4 { margin-top: 22px; }
-
-.hcard-icon { font-size: 1.6rem; margin-bottom: 10px; }
-.hcard h4 {
-  font-family: var(--font-head);
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 4px;
-  line-height: 1.3;
-}
-.hcard p { font-size: 0.75rem; color: var(--muted); line-height: 1.5; }
-.hcard-price {
-  margin-top: 12px;
-  font-weight: 700;
-  font-size: 1rem;
-  font-family: var(--font-head);
-}
-.hcard.c1 .hcard-price { color: var(--cyan); }
-.hcard.c2 .hcard-price { color: var(--green); }
-.hcard.c3 .hcard-price { color: var(--orange); }
-.hcard.c4 .hcard-price { color: var(--pink); }
-
-/* ── STATS BAR ── */
-.stats-bar {
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  background: var(--surface);
-  padding: 28px 32px;
-  position: relative;
-  z-index: 1;
-}
-.stats-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  display: flex;
-  gap: 0;
-  justify-content: space-around;
-}
-.stat {
-  text-align: center;
-  flex: 1;
-  border-right: 1px solid var(--border);
-  padding: 0 24px;
-}
-.stat:last-child { border: none; }
-.stat-num {
-  font-family: var(--font-head);
-  font-size: 2rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, var(--cyan), var(--green));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  display: block;
-}
-.stat-lbl { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
-
-/* ── SECTIONS ── */
-section { position: relative; z-index: 1; padding: 90px 32px; }
-.section-inner { max-width: 1280px; margin: 0 auto; }
-.sec-head { text-align: center; margin-bottom: 56px; }
-.sec-eye {
-  display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--cyan);
-  margin-bottom: 14px;
-}
-.sec-head h2 {
-  font-family: var(--font-head);
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  margin-bottom: 12px;
-}
-.sec-head p { color: var(--muted2); font-size: 1rem; max-width: 520px; margin: 0 auto; line-height: 1.7; }
-
-/* ── CATEGORY GRID ── */
-#categories { background: var(--bg2); }
-.cat-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-}
-.cat-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 28px 22px;
-  cursor: pointer;
-  transition: all 0.25s;
-  position: relative;
-  overflow: hidden;
-}
-.cat-card::before {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 3px;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s;
-}
-.cat-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--border2);
-  background: var(--surface2);
-}
-.cat-card:hover::before { transform: scaleX(1); }
-
-.cat-card.active {
-  border-color: transparent;
-  box-shadow: inset 0 0 0 1.5px currentColor;
-}
-
-.cat-card[data-cat="coding"]::before,
-.cat-card[data-cat="coding"].active { --cc: var(--cyan); color: var(--cyan); border-color: rgba(0,229,255,0.3); background: rgba(0,229,255,0.05); }
-.cat-card[data-cat="aitools"]::before,
-.cat-card[data-cat="aitools"].active { --cc: var(--green); color: var(--green); border-color: rgba(0,255,136,0.3); background: rgba(0,255,136,0.05); }
-.cat-card[data-cat="roadmaps"]::before,
-.cat-card[data-cat="roadmaps"].active { --cc: var(--orange); color: var(--orange); border-color: rgba(255,107,53,0.3); background: rgba(255,107,53,0.05); }
-.cat-card[data-cat="productivity"]::before,
-.cat-card[data-cat="productivity"].active { --cc: var(--yellow); color: var(--yellow); border-color: rgba(255,214,10,0.3); background: rgba(255,214,10,0.05); }
-.cat-card[data-cat="prompts"]::before,
-.cat-card[data-cat="prompts"].active { --cc: var(--pink); color: var(--pink); border-color: rgba(255,60,172,0.3); background: rgba(255,60,172,0.05); }
-.cat-card[data-cat="ebooks"]::before,
-.cat-card[data-cat="ebooks"].active { --cc: #a78bfa; color: #a78bfa; border-color: rgba(167,139,250,0.3); background: rgba(167,139,250,0.05); }
-.cat-card[data-cat="courses"]::before,
-.cat-card[data-cat="courses"].active { --cc: #fb923c; color: #fb923c; border-color: rgba(251,146,60,0.3); background: rgba(251,146,60,0.05); }
-.cat-card[data-cat="subscription"]::before,
-.cat-card[data-cat="subscription"].active { --cc: var(--cyan); color: var(--cyan); border-color: rgba(0,229,255,0.3); background: rgba(0,229,255,0.05); }
-
-.cat-card::before { background: var(--cc, var(--cyan)); }
-
-.cat-icon { font-size: 2rem; margin-bottom: 14px; display: block; }
-.cat-card h3 {
-  font-family: var(--font-head);
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 6px;
-}
-.cat-card p { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
-.cat-count {
-  display: inline-block;
-  margin-top: 14px;
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 3px 10px;
-  border-radius: 50px;
-  background: var(--bg);
-  color: inherit;
-  border: 1px solid;
-  border-color: currentColor;
-  opacity: 0.7;
-}
-
-/* ── PRODUCTS ── */
-#products { background: var(--bg); }
-
-.filter-row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 36px;
-  flex-wrap: wrap;
-}
-.ftab {
-  padding: 7px 18px;
-  border-radius: 50px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  cursor: pointer;
-  border: 1px solid var(--border2);
-  background: var(--surface);
-  color: var(--muted2);
-  transition: all 0.2s;
-}
-.ftab.active, .ftab:hover {
-  background: var(--cyan);
-  color: var(--bg);
-  border-color: var(--cyan);
-}
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-  gap: 20px;
-}
-
-.prod-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  transition: all 0.25s;
-  position: relative;
-}
-.prod-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--border2);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-}
-.prod-card.hidden { display: none; }
-
-.prod-thumb {
-  height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3.2rem;
-  position: relative;
-  overflow: hidden;
-}
-.prod-thumb::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.4));
-}
-
-.prod-badge {
-  position: absolute;
-  top: 12px; left: 12px;
-  font-size: 0.66rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  padding: 3px 10px;
-  border-radius: 50px;
-  z-index: 1;
-}
-
-.prod-bestseller {
-  position: absolute;
-  top: 12px; right: 12px;
-  font-size: 0.66rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 3px 10px;
-  border-radius: 50px;
-  background: var(--yellow);
-  color: var(--bg);
-  z-index: 1;
-}
-
-.prod-body { padding: 20px; }
-.prod-body h3 {
-  font-family: var(--font-head);
-  font-size: 0.97rem;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 6px;
-  line-height: 1.35;
-}
-.prod-body p { font-size: 0.8rem; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
-
-.prod-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
-.tag {
-  font-size: 0.7rem;
-  padding: 2px 9px;
-  border-radius: 4px;
-  background: var(--bg2);
-  color: var(--muted2);
-  border: 1px solid var(--border);
-}
-
-.prod-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 20px;
-  border-top: 1px solid var(--border);
-  background: var(--bg2);
-}
-.prod-price {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-}
-.prod-price .curr {
-  font-family: var(--font-head);
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: var(--cyan);
-}
-.prod-price .orig {
-  font-size: 0.8rem;
-  color: var(--muted);
-  text-decoration: line-through;
-}
-.prod-price .free-tag {
-  font-family: var(--font-head);
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: var(--green);
-}
-
-.btn-add-cart {
-  padding: 8px 16px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  background: var(--surface2);
-  color: var(--white);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius);
-  cursor: pointer;
-  font-family: var(--font-body);
-  transition: all 0.2s;
-}
-.btn-add-cart:hover { background: var(--cyan); color: var(--bg); border-color: var(--cyan); }
-.btn-add-cart.added { background: var(--green); color: var(--bg); border-color: var(--green); }
-
-/* ── FREE TOOLS ── */
-#aitools { background: var(--bg2); }
-.tools-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-.tool-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-  transition: all 0.25s;
-  position: relative;
-  overflow: hidden;
-}
-.tool-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-}
-.tool-card.tc-cyan::before { background: linear-gradient(90deg, var(--cyan), transparent); }
-.tool-card.tc-green::before { background: linear-gradient(90deg, var(--green), transparent); }
-.tool-card.tc-orange::before { background: linear-gradient(90deg, var(--orange), transparent); }
-
-.tool-card:hover { transform: translateY(-4px); border-color: var(--border2); box-shadow: var(--shadow-cyan); }
-
-.tool-icon { font-size: 2.2rem; margin-bottom: 16px; }
-.tool-card h3 {
-  font-family: var(--font-head);
-  font-size: 1.05rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-.tool-card p { font-size: 0.85rem; color: var(--muted2); line-height: 1.65; margin-bottom: 20px; }
-.tool-label {
-  display: inline-block;
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 4px 12px;
-  border-radius: 50px;
-  margin-bottom: 16px;
-}
-.label-free { background: var(--green-dim); color: var(--green); border: 1px solid rgba(0,255,136,0.25); }
-.label-pro { background: var(--cyan-dim); color: var(--cyan); border: 1px solid rgba(0,229,255,0.25); }
-
-/* ── ROADMAPS ── */
-#roadmaps { background: var(--bg); }
-.roadmap-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-.rm-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-  transition: all 0.25s;
-  cursor: pointer;
-}
-.rm-card:hover { transform: translateY(-4px); border-color: var(--border2); }
-.rm-days {
-  font-family: var(--font-head);
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: var(--cyan);
-  display: block;
-  margin-bottom: 4px;
-}
-.rm-days.g { color: var(--green); }
-.rm-days.o { color: var(--orange); }
-.rm-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 16px; display: block; }
-.rm-card h3 {
-  font-family: var(--font-head);
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 8px;
-}
-.rm-card p { font-size: 0.82rem; color: var(--muted2); line-height: 1.6; margin-bottom: 20px; }
-
-.rm-steps { display: flex; flex-direction: column; gap: 8px; margin-bottom: 22px; }
-.rm-step {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.8rem;
-  color: var(--muted2);
-}
-.rm-step-num {
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.65rem;
-  font-weight: 700;
-  flex-shrink: 0;
-  color: var(--cyan);
-}
-
-/* ── PRICING ── */
-#pricing { background: var(--bg2); }
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  max-width: 960px;
-  margin: 0 auto;
-}
-.price-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-  padding: 36px 28px;
-  position: relative;
-  transition: all 0.25s;
-}
-.price-card:hover { transform: translateY(-5px); }
-
-.price-card.featured {
-  background: linear-gradient(135deg, rgba(0,229,255,0.08) 0%, rgba(0,255,136,0.05) 100%);
-  border-color: rgba(0,229,255,0.3);
-  box-shadow: var(--shadow-cyan);
-}
-
-.popular-chip {
-  position: absolute;
-  top: -14px; left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, var(--cyan), var(--green));
-  color: var(--bg);
-  font-size: 0.7rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 4px 16px;
-  border-radius: 50px;
-  white-space: nowrap;
-}
-
-.price-plan {
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--muted);
-  margin-bottom: 8px;
-}
-.price-amt {
-  font-family: var(--font-head);
-  font-size: 3rem;
-  font-weight: 800;
-  color: var(--white);
-  margin: 10px 0 4px;
-  line-height: 1;
-}
-.price-amt sup { font-size: 1.4rem; vertical-align: top; margin-top: 8px; color: var(--muted2); }
-.price-amt span { font-size: 1rem; color: var(--muted); font-family: var(--font-body); font-weight: 400; }
-.price-period { font-size: 0.8rem; color: var(--muted); margin-bottom: 26px; }
-
-.price-features { list-style: none; margin-bottom: 28px; }
-.price-features li {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 0.85rem;
-  color: var(--muted2);
-  padding: 7px 0;
-  border-bottom: 1px solid var(--border);
-  line-height: 1.5;
-}
-.price-features li:last-child { border: none; }
-.price-features li.on { color: var(--white); }
-.price-features li.on::before { content: '✓'; color: var(--green); font-weight: 700; font-size: 0.8rem; flex-shrink: 0; margin-top: 1px; }
-.price-features li.off::before { content: '—'; color: var(--muted); flex-shrink: 0; margin-top: 1px; }
-.price-features li.off { color: var(--muted); }
-
-/* ── PROMPTS SHOWCASE ── */
-#prompts { background: var(--bg); }
-.prompt-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-.prompt-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 22px;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.2s;
-  cursor: default;
-}
-.prompt-card:hover { border-color: var(--border2); transform: translateY(-3px); }
-.prompt-card::before {
-  content: '"';
-  position: absolute;
-  top: -10px; right: 14px;
-  font-size: 5rem;
-  color: rgba(0,229,255,0.06);
-  font-family: serif;
-  line-height: 1;
-}
-.prompt-for {
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--cyan);
-  margin-bottom: 10px;
-  display: block;
-}
-.prompt-card p {
-  font-size: 0.85rem;
-  color: var(--muted2);
-  line-height: 1.65;
-  font-style: italic;
-}
-.prompt-card h4 {
-  font-family: var(--font-head);
-  font-size: 0.92rem;
-  color: var(--white);
-  margin-bottom: 8px;
-}
-.prompt-lock {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 14px;
-  font-size: 0.76rem;
-  color: var(--muted);
-}
-
-/* ── NEWSLETTER ── */
-#newsletter { background: var(--bg2); }
-.nl-box {
-  max-width: 580px;
-  margin: 0 auto;
-  text-align: center;
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius-xl);
-  padding: 52px 44px;
-  position: relative;
-  overflow: hidden;
-}
-.nl-box::before {
-  content: '';
-  position: absolute;
-  top: -60px; left: 50%;
-  transform: translateX(-50%);
-  width: 200px; height: 200px;
-  border-radius: 50%;
-  background: rgba(0,229,255,0.06);
-  filter: blur(40px);
-}
-.nl-box h2 {
-  font-family: var(--font-head);
-  font-size: 1.9rem;
-  font-weight: 800;
-  margin-bottom: 10px;
-  letter-spacing: -0.5px;
-}
-.nl-box p { font-size: 0.92rem; color: var(--muted2); line-height: 1.7; margin-bottom: 28px; }
-
-.nl-form { display: flex; gap: 10px; }
-.nl-form input {
-  flex: 1;
-  padding: 12px 16px;
-  background: var(--bg);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius);
-  color: var(--white);
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  outline: none;
-  transition: border-color 0.2s;
-}
-.nl-form input:focus { border-color: var(--cyan); }
-.nl-form input::placeholder { color: var(--muted); }
-
-.nl-success {
-  display: none;
-  align-items: center;
-  gap: 8px;
-  justify-content: center;
-  color: var(--green);
-  font-weight: 600;
-  margin-top: 14px;
-  font-size: 0.9rem;
-}
-.nl-note { font-size: 0.76rem; color: var(--muted); margin-top: 14px; }
-
-/* ── CART ── */
-.cart-overlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(6px);
-  z-index: 2000;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.3s;
-}
-.cart-overlay.open { opacity: 1; pointer-events: all; }
-
-.cart-panel {
-  position: fixed;
-  top: 0; right: 0;
-  height: 100%;
-  width: 400px;
-  max-width: 100vw;
-  background: var(--bg2);
-  border-left: 1px solid var(--border2);
-  z-index: 2001;
-  transform: translateX(100%);
-  transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
-  display: flex;
-  flex-direction: column;
-}
-.cart-panel.open { transform: translateX(0); }
-
-.cart-head {
-  padding: 20px 24px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--surface);
-}
-.cart-head h3 { font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; }
-.cart-x {
-  background: none; border: none;
-  color: var(--muted); font-size: 1.3rem;
-  cursor: pointer; line-height: 1;
-  transition: color 0.2s; padding: 4px;
-}
-.cart-x:hover { color: var(--cyan); }
-
-.cart-body { flex: 1; overflow-y: auto; padding: 16px; }
-.cart-empty-state {
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  height: 200px; gap: 10px;
-  color: var(--muted); font-size: 0.9rem;
-}
-.ci {
-  display: flex; gap: 12px; align-items: flex-start;
-  padding: 14px; border-radius: var(--radius-lg);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  margin-bottom: 10px; position: relative;
-}
-.ci-icon { font-size: 1.9rem; flex-shrink: 0; }
-.ci-info { flex: 1; }
-.ci-info h4 { font-size: 0.87rem; color: var(--white); margin-bottom: 3px; }
-.ci-info span { font-size: 0.77rem; color: var(--muted); }
-.ci-price { font-weight: 700; color: var(--cyan); font-size: 0.95rem; }
-.ci-rm {
-  position: absolute; top: 10px; right: 10px;
-  background: none; border: none;
-  color: var(--muted); cursor: pointer;
-  font-size: 1rem; transition: color 0.2s;
-}
-.ci-rm:hover { color: #ef4444; }
-
-.cart-foot {
-  padding: 20px 24px;
-  border-top: 1px solid var(--border);
-  background: var(--surface);
-}
-.cart-total-row {
-  display: flex; justify-content: space-between;
-  margin-bottom: 16px; font-weight: 600; font-size: 1rem;
-}
-.cart-total-row span:last-child {
-  font-family: var(--font-head);
-  font-size: 1.2rem;
-  color: var(--cyan);
-}
-.cart-note { font-size: 0.74rem; color: var(--muted); text-align: center; margin-top: 10px; }
-
-/* ── AUTH MODAL ── */
-.auth-overlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(8px);
-  z-index: 3000;
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.3s; padding: 20px;
-}
-.auth-overlay.open { opacity: 1; pointer-events: all; }
-.auth-modal {
-  background: var(--bg2);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius-xl);
-  width: 100%; max-width: 420px;
-  overflow: hidden;
-  transform: scale(0.95);
-  transition: transform 0.3s;
-}
-.auth-overlay.open .auth-modal { transform: scale(1); }
-
-.auth-modal-head {
-  background: var(--surface);
-  padding: 28px 32px 20px;
-  position: relative;
-  border-bottom: 1px solid var(--border);
-}
-.auth-modal-head h2 {
-  font-family: var(--font-head);
-  font-size: 1.5rem; font-weight: 800;
-  margin-bottom: 5px;
-}
-.auth-modal-head p { font-size: 0.83rem; color: var(--muted2); }
-.auth-x {
-  position: absolute; top: 18px; right: 20px;
-  background: none; border: none;
-  color: var(--muted); font-size: 1.3rem;
-  cursor: pointer; transition: color 0.2s;
-}
-.auth-x:hover { color: var(--cyan); }
-
-.auth-tabs-row {
-  display: flex; border-bottom: 1px solid var(--border);
-}
-.atab {
-  flex: 1; padding: 13px; text-align: center;
-  font-size: 0.85rem; font-weight: 600; cursor: pointer;
-  color: var(--muted); border-bottom: 2px solid transparent;
-  margin-bottom: -1px; transition: all 0.2s;
-}
-.atab.active { color: var(--cyan); border-color: var(--cyan); }
-
-.auth-body { padding: 28px 32px; }
-.aform { display: none; }
-.aform.active { display: block; }
-
-.fg { margin-bottom: 16px; }
-.fg label {
-  display: block; font-size: 0.78rem;
-  font-weight: 600; color: var(--muted2);
-  text-transform: uppercase; letter-spacing: 0.8px;
-  margin-bottom: 6px;
-}
-.fg input {
-  width: 100%; padding: 11px 14px;
-  background: var(--bg);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius);
-  color: var(--white);
-  font-family: var(--font-body); font-size: 0.9rem;
-  outline: none; transition: border-color 0.2s, box-shadow 0.2s;
-}
-.fg input:focus {
-  border-color: var(--cyan);
-  box-shadow: 0 0 0 3px rgba(0,229,255,0.1);
-}
-.form-note { font-size: 0.76rem; color: var(--muted); text-align: center; margin-top: 14px; }
-.form-note a { color: var(--cyan); }
-
-/* ── TOAST ── */
-.toast-wrap {
-  position: fixed; bottom: 24px; right: 24px;
-  z-index: 9999; display: flex;
-  flex-direction: column; gap: 10px;
-}
-.toast {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-left: 3px solid var(--cyan);
-  color: var(--white);
-  padding: 12px 20px;
-  border-radius: var(--radius-lg);
-  font-size: 0.86rem;
-  font-weight: 500;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-  animation: toastIn 0.3s ease;
-  max-width: 300px;
-  display: flex; align-items: center; gap: 8px;
-}
-.toast.success { border-color: var(--green); }
-@keyframes toastIn {
-  from { transform: translateX(120%); opacity: 0; }
-  to   { transform: translateX(0); opacity: 1; }
-}
-
-/* ── FOOTER ── */
-footer {
-  background: var(--bg);
-  border-top: 1px solid var(--border);
-  padding: 40px 32px;
-  position: relative; z-index: 1;
-}
-.footer-inner {
-  max-width: 1280px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 20px;
-}
-.footer-logo { font-family: var(--font-head); font-weight: 800; font-size: 1.2rem; }
-.footer-logo span { color: var(--cyan); }
-.footer-links { display: flex; gap: 20px; }
-.footer-links a { font-size: 0.83rem; color: var(--muted); transition: color 0.2s; }
-.footer-links a:hover { color: var(--cyan); }
-.footer-copy { font-size: 0.8rem; color: var(--muted); }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 1024px) {
-  .cat-grid { grid-template-columns: repeat(4, 1fr); }
-  .tools-grid { grid-template-columns: repeat(2, 1fr); }
-  .roadmap-grid { grid-template-columns: repeat(2, 1fr); }
-  .pricing-grid { grid-template-columns: repeat(3, 1fr); }
-  .prompt-grid { grid-template-columns: 1fr; }
-}
-@media (max-width: 768px) {
-  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
-  .hero-cards { display: none; }
-  .cat-grid { grid-template-columns: repeat(2, 1fr); }
-  .tools-grid { grid-template-columns: 1fr; }
-  .roadmap-grid { grid-template-columns: 1fr; }
-  .pricing-grid { grid-template-columns: 1fr; }
-  .stats-inner { flex-wrap: wrap; gap: 0; }
-  .stat { width: 50%; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 20px; }
-  .search-wrap { display: none; }
-  .nl-form { flex-direction: column; }
-  .nl-box { padding: 36px 24px; }
-  .nav-link { display: none; }
-}
+  :root {
+    --ink: #0a0a0f;
+    --paper: #f4f1eb;
+    --accent: #e84d2a;
+    --accent2: #2a7de8;
+    --gold: #f0b429;
+    --mid: #6b6b7a;
+    --card-bg: #ffffff;
+    --border: rgba(10,10,15,0.1);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE TEXTURE ─── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 999; opacity: 0.5;
+  }
+
+  /* ─── NAVBAR ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(244,241,235,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.4rem; letter-spacing: -0.03em;
+    color: var(--ink); text-decoration: none;
+  }
+  .logo span { color: var(--accent); }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.875rem; font-weight: 500; color: var(--mid);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  .nav-cta {
+    background: var(--ink); color: var(--paper);
+    font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.85rem;
+    padding: 0.65rem 1.5rem; border-radius: 100px;
+    text-decoration: none; transition: background 0.2s, transform 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .nav-cta:hover { background: var(--accent); transform: translateY(-1px); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    gap: 4rem;
+    position: relative; overflow: hidden;
+  }
+
+  .hero-bg-shape {
+    position: absolute; right: -10%; top: 5%;
+    width: 60vw; height: 85vh;
+    background: linear-gradient(135deg, #e84d2a18 0%, #2a7de818 50%, #f0b42918 100%);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    animation: morphBlob 8s ease-in-out infinite;
+    z-index: 0;
+  }
+
+  @keyframes morphBlob {
+    0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg); }
+    33% { border-radius: 70% 30% 50% 50% / 30% 60% 40% 70%; transform: rotate(5deg); }
+    66% { border-radius: 30% 70% 30% 70% / 60% 30% 70% 40%; transform: rotate(-5deg); }
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--gold); color: var(--ink);
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.4rem 1rem; border-radius: 100px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-badge::before { content: '✦'; font-size: 0.65rem; }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -0.03em;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+
+  h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem; color: var(--mid); line-height: 1.7;
+    margin: 1.5rem 0 2.5rem; max-width: 480px;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; align-items: center;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
+    padding: 0.9rem 2rem; border-radius: 100px;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(232,77,42,0.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(232,77,42,0.45); }
+
+  .btn-ghost {
+    font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.9rem;
+    color: var(--ink); text-decoration: none;
+    display: flex; align-items: center; gap: 0.5rem;
+    border-bottom: 2px solid var(--ink); padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--accent); border-color: var(--accent); }
+
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 3.5rem;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif; font-size: 1.8rem;
+    font-weight: 800; letter-spacing: -0.02em;
+  }
+  .stat-num span { color: var(--accent); }
+  .stat-label { font-size: 0.8rem; color: var(--mid); font-weight: 500; margin-top: 0.2rem; }
+
+  /* ─── HERO VISUAL ─── */
+  .hero-visual {
+    position: relative; z-index: 1;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .course-card-stack {
+    position: relative; width: 100%; max-width: 420px; margin: 0 auto;
+  }
+
+  .card-back, .card-front {
+    border-radius: 20px;
+    padding: 1.5rem;
+    position: absolute;
+  }
+
+  .card-back {
+    width: 85%; background: var(--ink); color: var(--paper);
+    top: 30px; right: -10px;
+    transform: rotate(4deg);
+    padding: 1.8rem;
+  }
+
+  .card-back .cb-tag {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.8rem;
+  }
+  .card-back .cb-title {
+    font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; line-height: 1.3;
+  }
+
+  .card-front {
+    width: 88%; background: #fff;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    top: 0; left: 0;
+    z-index: 2;
+  }
+
+  .course-thumb {
+    width: 100%; height: 160px; border-radius: 12px;
+    background: linear-gradient(135deg, #2a7de8, #e84d2a);
+    margin-bottom: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+  }
+
+  .course-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+  .course-tag {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    background: rgba(232,77,42,0.1); color: var(--accent);
+    padding: 0.25rem 0.7rem; border-radius: 100px;
+  }
+  .course-rating { font-size: 0.8rem; font-weight: 600; color: var(--gold); }
+  .course-title {
+    font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700;
+    line-height: 1.3; margin-bottom: 0.8rem;
+  }
+
+  .course-progress-bar {
+    background: rgba(10,10,15,0.08); border-radius: 100px; height: 5px; margin-bottom: 0.4rem;
+  }
+  .course-progress-fill {
+    height: 100%; border-radius: 100px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    width: 68%; transition: width 1s ease;
+  }
+
+  .progress-label { font-size: 0.75rem; color: var(--mid); }
+
+  /* floating badges on hero */
+  .float-badge {
+    position: absolute; background: #fff;
+    border-radius: 14px; padding: 0.7rem 1rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    display: flex; align-items: center; gap: 0.6rem;
+    font-size: 0.8rem; font-weight: 600;
+    animation: float 4s ease-in-out infinite;
+    z-index: 3;
+  }
+  .float-badge .fb-icon { font-size: 1.2rem; }
+  .float-badge.f1 { bottom: -20px; right: -20px; animation-delay: 0s; }
+  .float-badge.f2 { top: -15px; left: 10px; animation-delay: 1.5s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* ─── SECTION COMMON ─── */
+  section { padding: 6rem 4rem; }
+  .section-label {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.8rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .section-label::before { content: ''; display: block; width: 24px; height: 2px; background: var(--accent); }
+
+  .section-title {
+    font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 800; letter-spacing: -0.02em; line-height: 1.1;
+    max-width: 600px;
+  }
+
+  /* ─── CATEGORIES ─── */
+  .categories { background: var(--ink); color: var(--paper); }
+  .categories .section-label { color: var(--gold); }
+  .categories .section-label::before { background: var(--gold); }
+
+  .cat-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 3rem;
+  }
+  .cat-header .section-title { color: var(--paper); }
+
+  .cat-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem;
+  }
+
+  .cat-card {
+    border: 1px solid rgba(244,241,235,0.1);
+    border-radius: 16px; padding: 1.5rem;
+    cursor: pointer; transition: all 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .cat-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: var(--cat-color, rgba(255,255,255,0.05));
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .cat-card:hover { transform: translateY(-4px); border-color: rgba(244,241,235,0.3); }
+  .cat-card:hover::before { opacity: 1; }
+
+  .cat-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .cat-name {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+  }
+  .cat-count { font-size: 0.78rem; color: rgba(244,241,235,0.5); }
+
+  /* ─── FEATURES ─── */
+  .features { background: var(--paper); }
+  .feat-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 3rem; }
+  .feat-visual {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+
+  .feat-tile {
+    border-radius: 20px; padding: 1.5rem;
+    display: flex; flex-direction: column; gap: 0.8rem;
+    transition: transform 0.2s;
+  }
+  .feat-tile:hover { transform: translateY(-3px); }
+  .feat-tile.big { grid-column: span 2; flex-direction: row; align-items: center; }
+  .feat-tile.t1 { background: var(--ink); color: var(--paper); }
+  .feat-tile.t2 { background: var(--accent); color: #fff; }
+  .feat-tile.t3 { background: var(--paper); border: 1.5px solid var(--border); }
+  .feat-tile.t4 { background: var(--accent2); color: #fff; }
+
+  .feat-tile-icon { font-size: 2rem; }
+  .feat-tile-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; }
+  .feat-tile-desc { font-size: 0.82rem; line-height: 1.5; opacity: 0.75; }
+
+  .feat-list { display: flex; flex-direction: column; gap: 1.8rem; }
+  .feat-item { display: flex; gap: 1.2rem; align-items: flex-start; }
+  .feat-item-num {
+    font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700;
+    color: var(--accent); min-width: 28px;
+    border: 1.5px solid var(--accent); border-radius: 50%;
+    width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .feat-item-title { font-family: 'Syne', sans-serif; font-weight: 700; margin-bottom: 0.3rem; }
+  .feat-item-desc { font-size: 0.88rem; color: var(--mid); line-height: 1.6; }
+
+  /* ─── COURSES ─── */
+  .courses-section { background: var(--paper); border-top: 1px solid var(--border); }
+  .courses-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; }
+  .courses-filter { display: flex; gap: 0.6rem; margin-bottom: 2rem; }
+  .filter-btn {
+    font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600;
+    padding: 0.4rem 1rem; border-radius: 100px; border: 1.5px solid var(--border);
+    background: transparent; color: var(--mid); cursor: pointer; transition: all 0.2s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--ink); color: var(--paper); border-color: var(--ink);
+  }
+
+  .courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+  .course-card {
+    border-radius: 20px; overflow: hidden;
+    background: #fff; border: 1px solid var(--border);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .course-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+
+  .cc-thumb {
+    height: 180px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem;
+    position: relative;
+  }
+  .cc-badge {
+    position: absolute; top: 1rem; left: 1rem;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 0.3rem 0.7rem; border-radius: 100px; background: rgba(255,255,255,0.9);
+  }
+
+  .cc-body { padding: 1.3rem; }
+  .cc-meta { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+  .cc-cat { font-size: 0.72rem; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 0.08em; }
+  .cc-stars { font-size: 0.8rem; color: var(--gold); font-weight: 600; }
+  .cc-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; line-height: 1.3; margin-bottom: 0.8rem; }
+  .cc-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 0.8rem; border-top: 1px solid var(--border); }
+  .cc-price { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; }
+  .cc-price span { font-size: 0.75rem; font-weight: 400; color: var(--mid); text-decoration: line-through; margin-right: 4px; }
+  .cc-enroll {
+    font-size: 0.78rem; font-weight: 600; color: var(--accent2);
+    text-decoration: none; display: flex; align-items: center; gap: 0.3rem;
+    transition: gap 0.2s;
+  }
+  .cc-enroll:hover { gap: 0.6rem; }
+
+  /* ─── TESTIMONIALS ─── */
+  .testimonials { background: var(--ink); color: var(--paper); overflow: hidden; }
+  .testi-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+  .testi-header .section-label { color: var(--gold); }
+  .testi-header .section-label::before { background: var(--gold); }
+  .testi-header .section-title { color: var(--paper); }
+
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .testi-card {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px; padding: 1.8rem;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .testi-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-3px); }
+
+  .testi-quote { font-size: 2rem; color: var(--accent); line-height: 1; margin-bottom: 1rem; }
+  .testi-text { font-size: 0.9rem; line-height: 1.7; color: rgba(244,241,235,0.8); margin-bottom: 1.5rem; }
+  .testi-author { display: flex; align-items: center; gap: 1rem; }
+  .testi-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem;
+    color: #fff; flex-shrink: 0;
+  }
+  .testi-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.88rem; }
+  .testi-role { font-size: 0.75rem; color: rgba(244,241,235,0.5); }
+
+  /* ─── CTA ─── */
+  .cta-section { padding: 6rem 4rem; text-align: center; }
+  .cta-inner {
+    background: var(--ink); border-radius: 28px; padding: 5rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .cta-inner::before {
+    content: '';
+    position: absolute; width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(232,77,42,0.2) 0%, transparent 70%);
+    top: -200px; left: -100px;
+  }
+  .cta-inner::after {
+    content: '';
+    position: absolute; width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(42,125,232,0.2) 0%, transparent 70%);
+    bottom: -200px; right: -100px;
+  }
+  .cta-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .cta-title {
+    font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800; color: var(--paper); letter-spacing: -0.02em; line-height: 1.1;
+    margin-bottom: 1.5rem; position: relative; z-index: 1;
+  }
+  .cta-sub { font-size: 1rem; color: rgba(244,241,235,0.65); max-width: 500px; margin: 0 auto 2.5rem; position: relative; z-index: 1; line-height: 1.7; }
+  .cta-actions { display: flex; gap: 1rem; justify-content: center; position: relative; z-index: 1; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--ink); color: rgba(244,241,235,0.6);
+    padding: 3rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(244,241,235,0.08);
+  }
+  footer .logo { color: var(--paper); }
+  footer .footer-links { display: flex; gap: 2rem; }
+  footer .footer-links a { font-size: 0.82rem; color: rgba(244,241,235,0.5); text-decoration: none; transition: color 0.2s; }
+  footer .footer-links a:hover { color: var(--paper); }
+  footer .footer-copy { font-size: 0.78rem; }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
-<!-- ── NAV ── -->
+<!-- NAV -->
 <nav>
-  <div class="nav-inner">
-    <div class="logo">Stack<span>Up</span></div>
-
-    <div class="search-wrap">
-      <svg class="search-icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
-      </svg>
-      <input type="text" id="searchInput" placeholder="Search notes, courses, prompts…" autocomplete="off">
-      <div class="search-drop" id="searchDrop"></div>
-    </div>
-
-    <div class="nav-links">
-      <span class="nav-link" onclick="goTo('#categories')">Products</span>
-      <span class="nav-link" onclick="goTo('#roadmaps')">Roadmaps</span>
-      <span class="nav-link" onclick="goTo('#pricing')">Pricing</span>
-      <span class="nav-link" onclick="goTo('#newsletter')">Free Tools</span>
-      <button class="btn btn-ghost" onclick="openAuth('login')">Sign In</button>
-      <button class="btn btn-cyan" onclick="openAuth('register')">Get Started</button>
-      <button class="btn btn-ghost cart-btn" onclick="toggleCart()">
-        🛒
-        <span class="cart-count" id="cartCount">0</span>
-      </button>
-    </div>
-  </div>
+  <a href="#" class="logo">AGYASH<span>Course</span></a>
+  <ul class="nav-links">
+    <li><a href="#categories">Courses</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#">Pricing</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Start Learning →</a>
 </nav>
 
-<!-- ── HERO ── -->
-<section class="hero" id="hero">
-  <div class="hero-glow hero-glow-1"></div>
-  <div class="hero-glow hero-glow-2"></div>
-  <div class="hero-inner">
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-shape"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">New Courses Added Weekly</div>
+    <h1>Learn Skills That <em>Shape</em> Your Future</h1>
+    <p class="hero-sub">AGYASHCourse delivers structured, beginner-to-advanced learning paths with real-world examples. Access courses anytime, anywhere — and grow at your own pace.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">Explore Courses</a>
+      <a href="#features" class="btn-ghost">See how it works →</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">12k<span>+</span></div>
+        <div class="stat-label">Active Learners</div>
+      </div>
+      <div>
+        <div class="stat-num">200<span>+</span></div>
+        <div class="stat-label">Courses Available</div>
+      </div>
+      <div>
+        <div class="stat-num">98<span>%</span></div>
+        <div class="stat-label">Satisfaction Rate</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="course-card-stack" style="height: 360px;">
+      <div class="card-back">
+        <div class="cb-tag">Web Development</div>
+        <div class="cb-title">Advanced React & Node.js Masterclass</div>
+      </div>
+      <div class="card-front">
+        <div class="course-thumb">💻</div>
+        <div class="course-meta">
+          <span class="course-tag">Design</span>
+          <span class="course-rating">★ 4.9</span>
+        </div>
+        <div class="course-title">UI/UX Design Fundamentals for Beginners</div>
+        <div class="course-progress-bar">
+          <div class="course-progress-fill"></div>
+        </div>
+        <div class="progress-label">68% completed • 3h left</div>
+      </div>
+      <div class="float-badge f1">
+        <span class="fb-icon">🏆</span>
+        <span>Top Rated Course</span>
+      </div>
+      <div class="float-badge f2">
+        <span class="fb-icon">⚡</span>
+        <span>Updated 2025</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories" id="categories">
+  <div class="cat-header">
     <div>
-      <div class="hero-tag">🚀 India's #1 Student Learning Store</div>
-      <h1>Learn Smarter.<br><span class="hl-cyan">Code Faster.</span><br><span class="hl-green">Earn Better.</span></h1>
-      <p>Coding notes, AI tools, career roadmaps, and prompt bundles — everything a student or freelancer needs to go from zero to job-ready.</p>
-      <div class="hero-actions">
-        <button class="btn btn-cyan" onclick="goTo('#products')" style="padding:12px 28px;font-size:0.93rem">Browse All Products</button>
-        <button class="btn btn-ghost" onclick="goTo('#pricing')" style="padding:12px 28px;font-size:0.93rem">See Free Plan →</button>
-      </div>
-      <div class="hero-pills">
-        <span class="pill"><span class="pill-dot" style="background:var(--cyan)"></span>Java, JS, DBMS, AI Notes</span>
-        <span class="pill"><span class="pill-dot" style="background:var(--green)"></span>AI-Powered Study Tools</span>
-        <span class="pill"><span class="pill-dot" style="background:var(--orange)"></span>30-Day Job Roadmaps</span>
-        <span class="pill"><span class="pill-dot" style="background:var(--pink)"></span>500+ AI Prompts</span>
-      </div>
+      <div class="section-label">Browse</div>
+      <div class="section-title">Explore Course Categories</div>
     </div>
-    <div class="hero-cards">
-      <div class="hcard c1">
-        <div class="hcard-icon">💻</div>
-        <h4>Coding Notes Pack</h4>
-        <p>Java · JS · DBMS · AI + PYQs</p>
-        <div class="hcard-price">₹299</div>
-      </div>
-      <div class="hcard c2">
-        <div class="hcard-icon">🤖</div>
-        <h4>AI Study Tools</h4>
-        <p>MCQ Gen · Summary · Planner</p>
-        <div class="hcard-price">₹149/mo</div>
-      </div>
-      <div class="hcard c3">
-        <div class="hcard-icon">🗺️</div>
-        <h4>30-Day Job Roadmap</h4>
-        <p>Frontend · Backend · AI/ML</p>
-        <div class="hcard-price">₹199</div>
-      </div>
-      <div class="hcard c4">
-        <div class="hcard-icon">⚡</div>
-        <h4>AI Prompt Bundle</h4>
-        <p>500+ prompts for students</p>
-        <div class="hcard-price">₹99</div>
-      </div>
+    <a href="#" style="font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:600;color:rgba(244,241,235,0.6);text-decoration:none;">View all →</a>
+  </div>
+  <div class="cat-grid reveal">
+    <div class="cat-card" style="--cat-color: rgba(232,77,42,0.1)">
+      <div class="cat-icon">💻</div>
+      <div class="cat-name">Web Development</div>
+      <div class="cat-count">48 courses</div>
+    </div>
+    <div class="cat-card" style="--cat-color: rgba(240,180,41,0.1)">
+      <div class="cat-icon">🎨</div>
+      <div class="cat-name">UI/UX Design</div>
+      <div class="cat-count">32 courses</div>
+    </div>
+    <div class="cat-card" style="--cat-color: rgba(42,125,232,0.1)">
+      <div class="cat-icon">📊</div>
+      <div class="cat-name">Data Science</div>
+      <div class="cat-count">27 courses</div>
+    </div>
+    <div class="cat-card" style="--cat-color: rgba(100,200,100,0.1)">
+      <div class="cat-icon">📱</div>
+      <div class="cat-name">Mobile Dev</div>
+      <div class="cat-count">21 courses</div>
+    </div>
+    <div class="cat-card" style="--cat-color: rgba(180,100,230,0.1)">
+      <div class="cat-icon">🤖</div>
+      <div class="cat-name">AI & Machine Learning</div>
+      <div class="cat-count">19 courses</div>
+    </div>
+    <div class="cat-card" style="--cat-color: rgba(255,100,130,0.1)">
+      <div class="cat-icon">💼</div>
+      <div class="cat-name">Business & Finance</div>
+      <div class="cat-count">35 courses</div>
+    </div>
+    <div class="cat-card" style="--cat-color: rgba(255,165,0,0.1)">
+      <div class="cat-icon">📝</div>
+      <div class="cat-name">Content & Writing</div>
+      <div class="cat-count">18 courses</div>
+    </div>
+    <div class="cat-card" style="--cat-color: rgba(42,232,200,0.1)">
+      <div class="cat-icon">🔒</div>
+      <div class="cat-name">Cybersecurity</div>
+      <div class="cat-count">14 courses</div>
     </div>
   </div>
 </section>
 
-<!-- ── STATS BAR ── -->
-<div class="stats-bar">
-  <div class="stats-inner">
-    <div class="stat">
-      <span class="stat-num">3,200+</span>
-      <span class="stat-lbl">Students Enrolled</span>
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-label">Why us</div>
+  <div class="feat-layout reveal">
+    <div class="feat-visual">
+      <div class="feat-tile t1">
+        <div class="feat-tile-icon">📈</div>
+        <div class="feat-tile-title">Track Your Progress</div>
+        <div class="feat-tile-desc">Visual dashboards show your learning journey at a glance.</div>
+      </div>
+      <div class="feat-tile t2">
+        <div class="feat-tile-icon">🗺️</div>
+        <div class="feat-tile-title">Learning Paths</div>
+        <div class="feat-tile-desc">Curated roadmaps from beginner to expert.</div>
+      </div>
+      <div class="feat-tile t4">
+        <div class="feat-tile-icon">♾️</div>
+        <div class="feat-tile-title">Lifetime Access</div>
+        <div class="feat-tile-desc">Buy once, revisit anytime.</div>
+      </div>
+      <div class="feat-tile t3">
+        <div class="feat-tile-icon">🔄</div>
+        <div class="feat-tile-title">Always Updated</div>
+        <div class="feat-tile-desc">Fresh content added every week.</div>
+      </div>
     </div>
-    <div class="stat">
-      <span class="stat-num">40+</span>
-      <span class="stat-lbl">Products</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">4.9★</span>
-      <span class="stat-lbl">Avg Rating</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">500+</span>
-      <span class="stat-lbl">AI Prompts</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">₹0</span>
-      <span class="stat-lbl">Free Plan Always</span>
-    </div>
-  </div>
-</div>
 
-<!-- ── CATEGORIES ── -->
-<section id="categories">
-  <div class="section-inner">
-    <div class="sec-head">
-      <span class="sec-eye">What We Offer</span>
-      <h2>Everything You Need to Level Up</h2>
-      <p>8 powerful product categories designed for students, coders & freelancers in India.</p>
-    </div>
-    <div class="cat-grid">
-      <div class="cat-card" data-cat="coding" onclick="filterProducts('coding'); goTo('#products')">
-        <span class="cat-icon">💻</span>
-        <h3>Coding Notes + PYQ</h3>
-        <p>Java, JS, DBMS, AI — with previous year questions & interview Q&A</p>
-        <span class="cat-count">8 resources</span>
-      </div>
-      <div class="cat-card" data-cat="aitools" onclick="filterProducts('aitools'); goTo('#aitools')">
-        <span class="cat-icon">🤖</span>
-        <h3>AI Study Tools</h3>
-        <p>Notes summarizer, MCQ generator & smart revision planner</p>
-        <span class="cat-count">3 tools</span>
-      </div>
-      <div class="cat-card" data-cat="roadmaps" onclick="goTo('#roadmaps')">
-        <span class="cat-icon">🗺️</span>
-        <h3>Skill Roadmaps</h3>
-        <p>30–60 day plans for jobs, freelancing & AI careers</p>
-        <span class="cat-count">6 roadmaps</span>
-      </div>
-      <div class="cat-card" data-cat="productivity" onclick="filterProducts('productivity'); goTo('#products')">
-        <span class="cat-icon">📊</span>
-        <h3>Productivity Toolkit</h3>
-        <p>Goal planners, study trackers & habit tracker templates</p>
-        <span class="cat-count">5 templates</span>
-      </div>
-      <div class="cat-card" data-cat="prompts" onclick="goTo('#prompts')">
-        <span class="cat-icon">⚡</span>
-        <h3>AI Prompt Bundles</h3>
-        <p>500+ ready-to-use prompts for students & freelancers</p>
-        <span class="cat-count">4 bundles</span>
-      </div>
-      <div class="cat-card" data-cat="ebooks" onclick="filterProducts('ebook'); goTo('#products')">
-        <span class="cat-icon">📚</span>
-        <h3>eBooks</h3>
-        <p>Money, time management & career growth guides</p>
-        <span class="cat-count">6 ebooks</span>
-      </div>
-      <div class="cat-card" data-cat="courses" onclick="filterProducts('course'); goTo('#products')">
-        <span class="cat-icon">🎓</span>
-        <h3>Mini Courses</h3>
-        <p>Practical short coding & AI courses — project-based</p>
-        <span class="cat-count">5 courses</span>
-      </div>
-      <div class="cat-card" data-cat="subscription" onclick="goTo('#pricing')">
-        <span class="cat-icon">♾️</span>
-        <h3>Subscriptions</h3>
-        <p>Free, Pro & Elite plans — recurring access to everything</p>
-        <span class="cat-count">3 plans</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── PRODUCTS ── -->
-<section id="products">
-  <div class="section-inner">
-    <div class="sec-head">
-      <span class="sec-eye">Shop</span>
-      <h2>All Products</h2>
-      <p>One-time purchases, templates & bundles at student-friendly prices.</p>
-    </div>
-    <div class="filter-row" id="filterRow">
-      <div class="ftab active" data-filter="all">All</div>
-      <div class="ftab" data-filter="coding">Coding Notes</div>
-      <div class="ftab" data-filter="ebook">eBooks</div>
-      <div class="ftab" data-filter="course">Courses</div>
-      <div class="ftab" data-filter="productivity">Productivity</div>
-      <div class="ftab" data-filter="prompts">Prompts</div>
-    </div>
-    <div class="products-grid" id="productsGrid"></div>
-  </div>
-</section>
-
-<!-- ── AI TOOLS ── -->
-<section id="aitools">
-  <div class="section-inner">
-    <div class="sec-head">
-      <span class="sec-eye">AI-Powered</span>
-      <h2>Smart Study Tools</h2>
-      <p>AI tools built specifically for students. Free on Basic, unlimited on Pro.</p>
-    </div>
-    <div class="tools-grid">
-      <div class="tool-card tc-cyan">
-        <span class="tool-label label-free">Free</span>
-        <div class="tool-icon">📝</div>
-        <h3>Notes Summarizer</h3>
-        <p>Paste any notes or PDF text and get a crisp, structured summary with key points, definitions, and exam tips — in seconds.</p>
-        <button class="btn btn-cyan" onclick="showToast('📝 Opening Notes Summarizer…')">Try Free →</button>
-      </div>
-      <div class="tool-card tc-green">
-        <span class="tool-label label-pro">Pro</span>
-        <div class="tool-icon">🧠</div>
-        <h3>MCQ Generator</h3>
-        <p>Upload your syllabus or topic and instantly generate 10–50 MCQs with answers. Perfect for last-minute exam prep.</p>
-        <button class="btn btn-ghost" onclick="openAuth('register')">Upgrade to Pro →</button>
-      </div>
-      <div class="tool-card tc-orange">
-        <span class="tool-label label-pro">Pro</span>
-        <div class="tool-icon">📅</div>
-        <h3>Revision Planner</h3>
-        <p>Enter your exam date and topics — get a personalized day-wise revision schedule based on spaced repetition science.</p>
-        <button class="btn btn-ghost" onclick="openAuth('register')">Upgrade to Pro →</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── ROADMAPS ── -->
-<section id="roadmaps">
-  <div class="section-inner">
-    <div class="sec-head">
-      <span class="sec-eye">Career Growth</span>
-      <h2>Skill Roadmaps</h2>
-      <p>Day-by-day learning plans to get you job-ready or freelance-ready.</p>
-    </div>
-    <div class="roadmap-grid">
-      <div class="rm-card">
-        <span class="rm-days">30</span>
-        <span class="rm-label">Day Plan</span>
-        <h3>Frontend Developer Roadmap</h3>
-        <p>HTML → CSS → JS → React. Mini-projects every week with a final portfolio project.</p>
-        <div class="rm-steps">
-          <div class="rm-step"><div class="rm-step-num">1</div>HTML & CSS Foundations</div>
-          <div class="rm-step"><div class="rm-step-num">2</div>JavaScript & DOM Mastery</div>
-          <div class="rm-step"><div class="rm-step-num">3</div>React + 3 Live Projects</div>
+    <div>
+      <div class="section-title" style="margin-bottom:2rem">Everything You Need to <em style="font-style:normal;color:var(--accent)">Succeed</em></div>
+      <div class="feat-list">
+        <div class="feat-item">
+          <div class="feat-item-num">01</div>
+          <div>
+            <div class="feat-item-title">Flexible, On-Demand Learning</div>
+            <div class="feat-item-desc">Access your courses anytime, from any device. Pause, rewind, and learn at your own schedule — no deadlines, no pressure.</div>
+          </div>
         </div>
-        <button class="btn btn-surface" onclick="addToCart(101)">Get Roadmap — ₹199</button>
-      </div>
-      <div class="rm-card">
-        <span class="rm-days g">45</span>
-        <span class="rm-label">Day Plan</span>
-        <h3>Freelance Ready Roadmap</h3>
-        <p>Build your skills + portfolio + Upwork/Fiverr profile and land your first client.</p>
-        <div class="rm-steps">
-          <div class="rm-step"><div class="rm-step-num">1</div>Skill Stack Selection</div>
-          <div class="rm-step"><div class="rm-step-num">2</div>Portfolio Building</div>
-          <div class="rm-step"><div class="rm-step-num">3</div>Client Outreach Strategy</div>
+        <div class="feat-item">
+          <div class="feat-item-num">02</div>
+          <div>
+            <div class="feat-item-title">Real-World Projects</div>
+            <div class="feat-item-desc">Every course includes hands-on projects and practical examples that mirror actual industry scenarios.</div>
+          </div>
         </div>
-        <button class="btn btn-surface" onclick="addToCart(102)">Get Roadmap — ₹249</button>
-      </div>
-      <div class="rm-card">
-        <span class="rm-days o">60</span>
-        <span class="rm-label">Day Plan</span>
-        <h3>AI/ML Engineer Roadmap</h3>
-        <p>Python → Data Science → ML → LLMs → Build 2 AI apps and an AI-powered portfolio.</p>
-        <div class="rm-steps">
-          <div class="rm-step"><div class="rm-step-num">1</div>Python + NumPy + Pandas</div>
-          <div class="rm-step"><div class="rm-step-num">2</div>Machine Learning Models</div>
-          <div class="rm-step"><div class="rm-step-num">3</div>LLMs & AI App Building</div>
+        <div class="feat-item">
+          <div class="feat-item-num">03</div>
+          <div>
+            <div class="feat-item-title">Beginner-Friendly Yet Comprehensive</div>
+            <div class="feat-item-desc">Whether you're starting from zero or leveling up, our courses are designed to meet you exactly where you are.</div>
+          </div>
         </div>
-        <button class="btn btn-surface" onclick="addToCart(103)">Get Roadmap — ₹349</button>
+        <div class="feat-item">
+          <div class="feat-item-num">04</div>
+          <div>
+            <div class="feat-item-title">Certificates of Completion</div>
+            <div class="feat-item-desc">Earn verifiable certificates that boost your resume and LinkedIn profile upon completing any course.</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── PROMPTS ── -->
-<section id="prompts">
-  <div class="section-inner">
-    <div class="sec-head">
-      <span class="sec-eye">AI Prompt Bundles</span>
-      <h2>500+ Ready-to-Use Prompts</h2>
-      <p>Copy. Paste. Get results. Built for students and freelancers who use ChatGPT & Claude daily.</p>
+<!-- COURSES -->
+<section class="courses-section" id="courses">
+  <div class="courses-header">
+    <div>
+      <div class="section-label">Popular</div>
+      <div class="section-title">Featured Courses</div>
     </div>
-    <div class="prompt-grid">
-      <div class="prompt-card">
-        <span class="prompt-for">📚 For Students</span>
-        <h4>Study & Exam Prompts</h4>
-        <p>"Explain [topic] like I have 2 hours before my exam, give me the 5 most important concepts with examples and memory tricks."</p>
-        <div class="prompt-lock">🔓 Preview · 120 more like this in the Student Bundle</div>
-      </div>
-      <div class="prompt-card">
-        <span class="prompt-for" style="color:var(--green)">💼 For Freelancers</span>
-        <h4>Client Communication Prompts</h4>
-        <p>"Write a professional cold DM for [service] targeting [niche] clients. Keep it under 100 words, end with a soft CTA."</p>
-        <div class="prompt-lock">🔓 Preview · 80 more like this in the Freelancer Bundle</div>
-      </div>
-      <div class="prompt-card">
-        <span class="prompt-for" style="color:var(--orange)">💻 For Coders</span>
-        <h4>Code & Debug Prompts</h4>
-        <p>"Review my code below for bugs, performance issues, and readability. Give suggestions with corrected code snippets."</p>
-        <div class="prompt-lock">🔓 Preview · 150 more like this in the Coding Bundle</div>
-      </div>
-      <div class="prompt-card">
-        <span class="prompt-for" style="color:var(--pink)">🚀 For Job Seekers</span>
-        <h4>Resume & Interview Prompts</h4>
-        <p>"Rewrite my resume bullet for [job role] using strong action verbs and quantifiable results. Current bullet: [paste here]."</p>
-        <div class="prompt-lock">🔓 Preview · 100 more like this in the Career Bundle</div>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:32px">
-      <button class="btn btn-cyan" style="padding:13px 32px;font-size:0.93rem" onclick="addToCart(5)">Get All 4 Bundles — ₹299 <span style="text-decoration:line-through;opacity:0.6;font-weight:400;margin-left:4px">₹599</span></button>
-    </div>
+    <a href="#" class="btn-ghost">See all courses →</a>
   </div>
-</section>
-
-<!-- ── PRICING ── -->
-<section id="pricing">
-  <div class="section-inner">
-    <div class="sec-head">
-      <span class="sec-eye">Subscription Plans</span>
-      <h2>Start Free. Scale When Ready.</h2>
-      <p>No credit card needed for Free plan. Upgrade anytime.</p>
+  <div class="courses-filter">
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">Development</button>
+    <button class="filter-btn">Design</button>
+    <button class="filter-btn">Data</button>
+    <button class="filter-btn">Business</button>
+  </div>
+  <div class="courses-grid reveal">
+    <div class="course-card">
+      <div class="cc-thumb" style="background:linear-gradient(135deg,#1a1a2e,#2a7de8)">
+        <span>💻</span>
+        <span class="cc-badge" style="color:var(--accent2)">Bestseller</span>
+      </div>
+      <div class="cc-body">
+        <div class="cc-meta"><span class="cc-cat">Web Dev</span><span class="cc-stars">★ 4.9 (2.3k)</span></div>
+        <div class="cc-title">Full Stack Web Development Bootcamp 2025</div>
+        <div class="cc-footer">
+          <div class="cc-price"><span>₹4,999</span>₹1,499</div>
+          <a href="#" class="cc-enroll">Enroll Now →</a>
+        </div>
+      </div>
     </div>
-    <div class="pricing-grid">
-      <!-- FREE -->
-      <div class="price-card">
-        <div class="price-plan">Free Forever</div>
-        <div class="price-amt"><sup>₹</sup>0<span>/mo</span></div>
-        <div class="price-period">No credit card required</div>
-        <ul class="price-features">
-          <li class="on">5 free coding note chapters</li>
-          <li class="on">Notes Summarizer (5/day)</li>
-          <li class="on">1 free roadmap preview</li>
-          <li class="on">10 AI prompts access</li>
-          <li class="off">MCQ Generator</li>
-          <li class="off">Full courses access</li>
-          <li class="off">Revision Planner</li>
-          <li class="off">Priority support</li>
-        </ul>
-        <button class="btn btn-ghost" style="width:100%;justify-content:center;padding:13px" onclick="openAuth('register')">Start Free</button>
+    <div class="course-card">
+      <div class="cc-thumb" style="background:linear-gradient(135deg,#2d1b5e,#e84d2a)">
+        <span>🎨</span>
+        <span class="cc-badge" style="color:var(--accent)">New</span>
       </div>
-      <!-- PRO -->
-      <div class="price-card featured">
-        <div class="popular-chip">⚡ Most Popular</div>
-        <div class="price-plan">Pro</div>
-        <div class="price-amt"><sup>₹</sup>149<span>/mo</span></div>
-        <div class="price-period">Billed monthly · Cancel anytime</div>
-        <ul class="price-features">
-          <li class="on">All coding notes (Java, JS, DBMS, AI)</li>
-          <li class="on">Unlimited Notes Summarizer</li>
-          <li class="on">MCQ Generator</li>
-          <li class="on">Revision Planner</li>
-          <li class="on">All 6 roadmaps</li>
-          <li class="on">200+ AI prompts</li>
-          <li class="on">2 mini courses/month</li>
-          <li class="off">1-on-1 mentorship</li>
-        </ul>
-        <button class="btn btn-cyan" style="width:100%;justify-content:center;padding:13px" onclick="checkoutPayPal('Pro Plan', 149)">Get Pro — ₹149/mo</button>
+      <div class="cc-body">
+        <div class="cc-meta"><span class="cc-cat">Design</span><span class="cc-stars">★ 4.8 (1.7k)</span></div>
+        <div class="cc-title">Figma UI/UX Design — Zero to Professional</div>
+        <div class="cc-footer">
+          <div class="cc-price"><span>₹3,999</span>₹1,199</div>
+          <a href="#" class="cc-enroll">Enroll Now →</a>
+        </div>
       </div>
-      <!-- ELITE -->
-      <div class="price-card">
-        <div class="price-plan">Elite</div>
-        <div class="price-amt"><sup>₹</sup>399<span>/mo</span></div>
-        <div class="price-period">Billed monthly · Cancel anytime</div>
-        <ul class="price-features">
-          <li class="on">Everything in Pro</li>
-          <li class="on">All mini courses (unlimited)</li>
-          <li class="on">All 500+ AI prompts</li>
-          <li class="on">Productivity toolkit (all templates)</li>
-          <li class="on">1-on-1 mentorship (30 min/mo)</li>
-          <li class="on">Early access to new releases</li>
-          <li class="on">Private Discord community</li>
-          <li class="on">Resume & LinkedIn review</li>
-        </ul>
-        <button class="btn btn-green" style="width:100%;justify-content:center;padding:13px" onclick="checkoutPayPal('Elite Plan', 399)">Go Elite — ₹399/mo</button>
+    </div>
+    <div class="course-card">
+      <div class="cc-thumb" style="background:linear-gradient(135deg,#0f3460,#f0b429)">
+        <span>🤖</span>
+        <span class="cc-badge" style="color:var(--gold)">Trending</span>
+      </div>
+      <div class="cc-body">
+        <div class="cc-meta"><span class="cc-cat">AI / ML</span><span class="cc-stars">★ 5.0 (984)</span></div>
+        <div class="cc-title">Python for AI & Machine Learning — Complete Guide</div>
+        <div class="cc-footer">
+          <div class="cc-price"><span>₹5,999</span>₹1,799</div>
+          <a href="#" class="cc-enroll">Enroll Now →</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── NEWSLETTER ── -->
-<section id="newsletter">
-  <div class="section-inner">
-    <div class="nl-box">
-      <div style="font-size:2.5rem;margin-bottom:14px">📬</div>
-      <h2>Get Weekly Resources<br><span style="color:var(--cyan)">For Free</span></h2>
-      <p>Join 3,200+ students who get free coding tips, AI prompts, career advice & exclusive deals every week.</p>
-      <div class="nl-form">
-        <input type="email" id="nlEmail" placeholder="your@email.com">
-        <button class="btn btn-cyan" onclick="subscribeNL()">Subscribe</button>
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="testi-header">
+    <div>
+      <div class="section-label">Testimonials</div>
+      <div class="section-title">What Our Learners Say</div>
+    </div>
+  </div>
+  <div class="testi-grid reveal">
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <div class="testi-text">AGYASHCourse completely changed how I approach learning. The structured paths kept me focused, and I landed my first dev job within 4 months of finishing the bootcamp.</div>
+      <div class="testi-author">
+        <div class="testi-avatar">RK</div>
+        <div>
+          <div class="testi-name">Rahul Kumar</div>
+          <div class="testi-role">Junior Developer @ TechIndia</div>
+        </div>
       </div>
-      <div class="nl-success" id="nlSuccess">✅ You're in! Check your inbox.</div>
-      <p class="nl-note">No spam. Unsubscribe anytime. 100% free.</p>
+    </div>
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <div class="testi-text">I've tried many online platforms, but AGYASHCourse stands out for its real-world projects. The design course gave me a portfolio that I'm genuinely proud of.</div>
+      <div class="testi-author">
+        <div class="testi-avatar">PS</div>
+        <div>
+          <div class="testi-name">Priya Sharma</div>
+          <div class="testi-role">Freelance UI Designer</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <div class="testi-text">The progress tracking feature kept me accountable. I completed the data science course in 6 weeks while working full-time — something I never thought possible.</div>
+      <div class="testi-author">
+        <div class="testi-avatar">AM</div>
+        <div>
+          <div class="testi-name">Arjun Mehta</div>
+          <div class="testi-role">Data Analyst @ Infosys</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner reveal">
+    <div class="cta-label">✦ Join 12,000+ Learners</div>
+    <h2 class="cta-title">Your Next Skill Starts<br>Right Here</h2>
+    <p class="cta-sub">Flexible access, affordable pricing, and expert-crafted content — everything you need to grow your career on your own terms.</p>
+    <div class="cta-actions">
+      <a href="#" class="btn-primary">Get Started Free</a>
+      <a href="#courses" style="font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:600;color:rgba(244,241,235,0.7);text-decoration:none;padding:0.9rem 0;border-bottom:1px solid rgba(244,241,235,0.3)">Browse Courses →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-logo">Stack<span>Up</span></div>
-    <div class="footer-links">
-      <a href="#">About</a>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms</a>
-      <a href="#">Contact</a>
-      <a href="#">Refund Policy</a>
-    </div>
-    <div class="footer-copy">© 2025 StackUp. Made with ❤️ for Indian students.</div>
+  <a href="#" class="logo">AGYASH<span>Course</span></a>
+  <div class="footer-links">
+    <a href="#">About</a>
+    <a href="#">Courses</a>
+    <a href="#">Pricing</a>
+    <a href="#">Blog</a>
+    <a href="#">Contact</a>
   </div>
+  <div class="footer-copy">© 2025 AGYASHCourse. All rights reserved.</div>
 </footer>
 
-<!-- ── CART ── -->
-<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
-<div class="cart-panel" id="cartPanel">
-  <div class="cart-head">
-    <h3>🛒 Your Cart</h3>
-    <button class="cart-x" onclick="toggleCart()">✕</button>
-  </div>
-  <div class="cart-body" id="cartBody">
-    <div class="cart-empty-state">🛒<span>Your cart is empty</span></div>
-  </div>
-  <div class="cart-foot">
-    <div class="cart-total-row">
-      <span>Total</span>
-      <span id="cartTotalAmt">₹0</span>
-    </div>
-    <button class="btn btn-cyan" style="width:100%;justify-content:center;padding:13px" onclick="checkoutCart()">Pay with PayPal</button>
-    <p class="cart-note">🔒 Secure checkout · Instant delivery · 7-day refund</p>
-  </div>
-</div>
-
-<!-- ── AUTH ── -->
-<div class="auth-overlay" id="authOverlay" onclick="handleAuthBg(event)">
-  <div class="auth-modal">
-    <div class="auth-modal-head">
-      <h2 id="authTitle">Welcome Back</h2>
-      <p id="authSub">Sign in to access your purchases</p>
-      <button class="auth-x" onclick="closeAuth()">✕</button>
-    </div>
-    <div class="auth-tabs-row">
-      <div class="atab active" id="tabLogin" onclick="switchAuth('login')">Sign In</div>
-      <div class="atab" id="tabReg" onclick="switchAuth('register')">Create Account</div>
-    </div>
-    <div class="auth-body">
-      <form class="aform active" id="formLogin" onsubmit="doLogin(event)">
-        <div class="fg"><label>Email</label><input type="email" placeholder="you@example.com" required></div>
-        <div class="fg"><label>Password</label><input type="password" placeholder="••••••••" required></div>
-        <button type="submit" class="btn btn-cyan" style="width:100%;justify-content:center;padding:13px">Sign In</button>
-        <p class="form-note"><a href="#">Forgot password?</a></p>
-      </form>
-      <form class="aform" id="formReg" onsubmit="doRegister(event)">
-        <div class="fg"><label>Full Name</label><input type="text" placeholder="Your Name" required></div>
-        <div class="fg"><label>Email</label><input type="email" placeholder="you@example.com" required></div>
-        <div class="fg"><label>Password</label><input type="password" placeholder="Min. 8 characters" required minlength="8"></div>
-        <button type="submit" class="btn btn-cyan" style="width:100%;justify-content:center;padding:13px">Create Free Account</button>
-        <p class="form-note">By signing up you agree to our <a href="#">Terms of Service</a>.</p>
-      </form>
-    </div>
-  </div>
-</div>
-
-<div class="toast-wrap" id="toastWrap"></div>
-
 <script>
-// ── CURSOR ──
-const cur = document.getElementById('cursor');
-const ring = document.getElementById('cursorRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
-function animRing() { rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animRing); }
-animRing();
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
 
-// ── DATA ──
-const PRODUCTS = [
-  { id:1,  name:'Java Complete Notes + PYQ', cat:'coding',      price:299, orig:499, emoji:'☕', bg:'#0a1628', tags:['Java','OOP','PYQ','Interview'], desc:'200+ pages, full syllabus, previous year Qs, interview Q&A. Covers collections, threads, JDBC, Spring basics.', best:true },
-  { id:2,  name:'JavaScript Mastery Notes', cat:'coding',      price:249, orig:399, emoji:'🟨', bg:'#0a1220', tags:['JS','ES6+','DOM','Async'], desc:'ES6+ to advanced — closures, promises, async/await, DOM, Web APIs. Interview-ready.' },
-  { id:3,  name:'DBMS Notes + SQL Cheatsheet', cat:'coding',   price:179, orig:299, emoji:'🗄️', bg:'#0d1a0a', tags:['SQL','DBMS','Normalization'], desc:'ER models, normalization, transactions, SQL queries with 50+ practice problems.' },
-  { id:4,  name:'AI & ML Notes Bundle', cat:'coding',          price:349, orig:599, emoji:'🤖', bg:'#130d1a', tags:['ML','AI','Deep Learning'], desc:'Covers AI fundamentals, ML algorithms, neural networks — with Python code snippets.', best:true },
-  { id:5,  name:'Mega AI Prompt Bundle (500+)', cat:'prompts',  price:299, orig:599, emoji:'⚡', bg:'#1a0d08', tags:['ChatGPT','Claude','Students','Freelancers'], desc:'500+ categorized prompts for studying, coding, freelancing, job hunting & content creation.', best:true },
-  { id:6,  name:'Student Prompt Pack (120)', cat:'prompts',     price:99,  orig:null, emoji:'📚', bg:'#0a1220', tags:['Study','Exams','Notes'], desc:'120 exam-focused prompts: summarization, MCQ gen, flashcards, concept explanations.' },
-  { id:7,  name:'Money Mastery eBook', cat:'ebook',            price:149, orig:249, emoji:'💰', bg:'#0a1612', tags:['Finance','Investing','Wealth'], desc:'Personal finance for students & freshers — budgeting, SIPs, credit score, side income.' },
-  { id:8,  name:'Time Management System', cat:'ebook',         price:129, orig:199, emoji:'⏰', bg:'#14100a', tags:['Productivity','GTD','Focus'], desc:'Deep work, time-blocking, Pomodoro systems — with a 30-day implementation challenge.' },
-  { id:9,  name:'Career Growth Blueprint', cat:'ebook',        price:199, orig:349, emoji:'📈', bg:'#0d0a1a', tags:['Career','Resume','LinkedIn'], desc:'LinkedIn optimization, cold outreach, salary negotiation & portfolio building guide.' },
-  { id:10, name:'Study Tracker (Notion)', cat:'productivity',  price:79,  orig:null, emoji:'📊', bg:'#0a1220', tags:['Notion','Study','Tracker'], desc:'Notion template: daily study log, subject tracker, progress charts & exam countdown.' },
-  { id:11, name:'Goal Planner Pack', cat:'productivity',       price:69,  orig:null, emoji:'🎯', bg:'#0a1612', tags:['Goals','Planner','Excel'], desc:'90-day goal planner in Excel + PDF — with weekly review system & milestone tracker.' },
-  { id:12, name:'Habit Tracker Bundle', cat:'productivity',    price:59,  orig:null, emoji:'✅', bg:'#14100a', tags:['Habits','PDF','Template'], desc:'21-day & 66-day habit trackers. Printable PDF + editable Canva template.' },
-  { id:13, name:'Python for Beginners (Mini Course)', cat:'course', price:499, orig:799, emoji:'🐍', bg:'#0a1220', tags:['Python','Beginner','Projects'], desc:'10 hours · 5 projects · Certificates. Go from zero to building real Python scripts.', best:true },
-  { id:14, name:'React in 15 Days', cat:'course',              price:599, orig:999, emoji:'⚛️', bg:'#0d1a20', tags:['React','Frontend','Projects'], desc:'Build 3 full React apps — todo, weather, & job board. Hooks, state, API calls covered.' },
-  { id:15, name:'AI Tools for Students (Course)', cat:'course', price:399, orig:599, emoji:'🎓', bg:'#130d1a', tags:['AI','ChatGPT','Productivity'], desc:'Master 10+ AI tools: ChatGPT, Claude, Midjourney, Notion AI. 6 hours of practical lessons.' },
-];
-
-const ROADMAP_PRODUCTS = [
-  { id:101, name:'30-Day Frontend Roadmap', price:199 },
-  { id:102, name:'45-Day Freelance Roadmap', price:249 },
-  { id:103, name:'60-Day AI/ML Roadmap', price:349 },
-];
-
-const ALL_PRODUCTS = [...PRODUCTS, ...ROADMAP_PRODUCTS];
-
-// ── CART ──
-let cart = [];
-
-function addToCart(id) {
-  const p = ALL_PRODUCTS.find(x=>x.id===id);
-  if (!p) return;
-  if (cart.find(x=>x.id===id)) { showToast('Already in cart!'); return; }
-  cart.push(p);
-  updateCart();
-  showToast(`✓ "${p.name}" added!`, 'success');
-  const btn = document.querySelector(`.btn-add-cart[data-id="${id}"]`);
-  if (btn) { btn.textContent = '✓ Added'; btn.classList.add('added'); setTimeout(()=>{btn.textContent='Add to Cart';btn.classList.remove('added');},2000); }
-}
-
-function removeFromCart(id) { cart=cart.filter(x=>x.id!==id); updateCart(); }
-
-function updateCart() {
-  const count = cart.length;
-  document.getElementById('cartCount').textContent = count;
-  const total = cart.reduce((s,i)=>s+i.price,0);
-  document.getElementById('cartTotalAmt').textContent = `₹${total}`;
-  const body = document.getElementById('cartBody');
-  if (!count) { body.innerHTML='<div class="cart-empty-state">🛒<span>Your cart is empty</span></div>'; return; }
-  body.innerHTML = cart.map(p=>`
-    <div class="ci">
-      <div class="ci-icon">${p.emoji||'📦'}</div>
-      <div class="ci-info"><h4>${p.name}</h4><span>${p.cat||'product'}</span></div>
-      <div class="ci-price">₹${p.price}</div>
-      <button class="ci-rm" onclick="removeFromCart(${p.id})">✕</button>
-    </div>
-  `).join('');
-}
-
-function toggleCart() {
-  document.getElementById('cartOverlay').classList.toggle('open');
-  document.getElementById('cartPanel').classList.toggle('open');
-}
-
-function checkoutCart() {
-  if (!cart.length) { showToast('Your cart is empty!'); return; }
-  const total = cart.reduce((s,i)=>s+i.price,0);
-  const desc = encodeURIComponent(cart.map(i=>i.name).join(', '));
-  const url = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=YOUR_PAYPAL_EMAIL&amount=${total}&item_name=${desc}&currency_code=INR&return=${encodeURIComponent(location.href)}`;
-  showToast('Redirecting to PayPal…');
-  setTimeout(()=>window.open(url,'_blank'),800);
-}
-
-function checkoutPayPal(plan, amt) {
-  const url = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick-subscriptions&business=YOUR_PAYPAL_EMAIL&item_name=${encodeURIComponent(plan)}&a3=${amt}&p3=1&t3=M&currency_code=INR&return=${encodeURIComponent(location.href)}`;
-  showToast(`Redirecting to PayPal for ${plan}…`);
-  setTimeout(()=>window.open(url,'_blank'),800);
-}
-
-// ── RENDER PRODUCTS ──
-const THUMB_BG = {
-  coding:'linear-gradient(135deg,#0a1628,#0d2040)',
-  prompts:'linear-gradient(135deg,#1a0d08,#2a1510)',
-  ebook:'linear-gradient(135deg,#0a1612,#0d2018)',
-  productivity:'linear-gradient(135deg,#14100a,#201808)',
-  course:'linear-gradient(135deg,#0d1a20,#102030)',
-};
-const CAT_COLOR = { coding:'#00e5ff', prompts:'#ff3cac', ebook:'#a78bfa', productivity:'#ffd60a', course:'#fb923c' };
-const CAT_LABEL = { coding:'Coding Notes', prompts:'Prompts', ebook:'eBook', productivity:'Productivity', course:'Mini Course' };
-
-function renderProducts(filter='all') {
-  const grid = document.getElementById('productsGrid');
-  const list = filter==='all' ? PRODUCTS : PRODUCTS.filter(p=>p.cat===filter);
-  grid.innerHTML = list.map(p=>`
-    <div class="prod-card" data-cat="${p.cat}">
-      <div class="prod-thumb" style="background:${THUMB_BG[p.cat]||'var(--surface)'}">
-        <span>${p.emoji}</span>
-        <div class="prod-badge" style="background:${CAT_COLOR[p.cat]}22;color:${CAT_COLOR[p.cat]};border:1px solid ${CAT_COLOR[p.cat]}44">${CAT_LABEL[p.cat]||p.cat}</div>
-        ${p.best?'<div class="prod-bestseller">🔥 Bestseller</div>':''}
-      </div>
-      <div class="prod-body">
-        <h3>${p.name}</h3>
-        <p>${p.desc}</p>
-        <div class="prod-tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
-      </div>
-      <div class="prod-footer">
-        <div class="prod-price">
-          <span class="curr">₹${p.price}</span>
-          ${p.orig?`<span class="orig">₹${p.orig}</span>`:''}
-        </div>
-        <button class="btn-add-cart" data-id="${p.id}" onclick="addToCart(${p.id})">Add to Cart</button>
-      </div>
-    </div>
-  `).join('');
-}
-
-document.getElementById('filterRow').addEventListener('click', e=>{
-  const tab = e.target.closest('.ftab');
-  if (!tab) return;
-  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
-  tab.classList.add('active');
-  renderProducts(tab.dataset.filter);
-});
-
-renderProducts();
-
-// ── SEARCH ──
-const sInput = document.getElementById('searchInput');
-const sDrop = document.getElementById('searchDrop');
-
-sInput.addEventListener('input', ()=>{
-  const q = sInput.value.trim().toLowerCase();
-  if (!q) { sDrop.classList.remove('open'); return; }
-  const hits = PRODUCTS.filter(p=>p.name.toLowerCase().includes(q)||p.cat.includes(q)||p.tags.some(t=>t.toLowerCase().includes(q)));
-  if (!hits.length) {
-    sDrop.innerHTML=`<div class="sdrop-item"><span class="sdrop-name" style="color:var(--muted)">No results found</span></div>`;
-  } else {
-    sDrop.innerHTML=hits.map(p=>`
-      <div class="sdrop-item" onclick="selectSearch(${p.id})">
-        <span>${p.emoji}</span>
-        <span class="sdrop-badge" style="background:${CAT_COLOR[p.cat]}22;color:${CAT_COLOR[p.cat]}">${p.cat}</span>
-        <span class="sdrop-name">${p.name}</span>
-        <span class="sdrop-price">₹${p.price}</span>
-      </div>
-    `).join('');
-  }
-  sDrop.classList.add('open');
-});
-
-function selectSearch(id) {
-  sInput.value=''; sDrop.classList.remove('open');
-  addToCart(id); goTo('#products');
-}
-
-document.addEventListener('click', e=>{ if(!e.target.closest('.search-wrap')) sDrop.classList.remove('open'); });
-
-// ── FILTER from category cards ──
-function filterProducts(cat) {
-  document.querySelectorAll('.ftab').forEach(t=>{
-    t.classList.toggle('active', t.dataset.filter===cat);
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
   });
-  renderProducts(cat);
-}
-
-// ── AUTH ──
-function openAuth(tab='login') {
-  switchAuth(tab);
-  document.getElementById('authOverlay').classList.add('open');
-}
-function closeAuth() { document.getElementById('authOverlay').classList.remove('open'); }
-function handleAuthBg(e) { if(e.target===document.getElementById('authOverlay')) closeAuth(); }
-function switchAuth(tab) {
-  const isL = tab==='login';
-  document.getElementById('tabLogin').classList.toggle('active',isL);
-  document.getElementById('tabReg').classList.toggle('active',!isL);
-  document.getElementById('formLogin').classList.toggle('active',isL);
-  document.getElementById('formReg').classList.toggle('active',!isL);
-  document.getElementById('authTitle').textContent = isL?'Welcome Back':'Create Account';
-  document.getElementById('authSub').textContent = isL?'Sign in to access your purchases':'Join 3,200+ students today';
-}
-function doLogin(e) { e.preventDefault(); closeAuth(); showToast('👋 Signed in successfully!','success'); }
-function doRegister(e) { e.preventDefault(); closeAuth(); showToast('🎉 Account created! Welcome aboard.','success'); }
-
-// ── NEWSLETTER ──
-function subscribeNL() {
-  const v = document.getElementById('nlEmail').value.trim();
-  if(!v||!v.includes('@')) { showToast('Enter a valid email!'); return; }
-  document.getElementById('nlEmail').value='';
-  document.getElementById('nlSuccess').style.display='flex';
-  showToast('📬 Subscribed! Check your inbox.','success');
-}
-
-// ── TOAST ──
-function showToast(msg, type='') {
-  const wrap = document.getElementById('toastWrap');
-  const t = document.createElement('div');
-  t.className = 'toast'+(type?' '+type:'');
-  t.innerHTML = msg;
-  wrap.appendChild(t);
-  setTimeout(()=>{ t.style.transition='all 0.3s'; t.style.opacity='0'; t.style.transform='translateX(120%)'; setTimeout(()=>t.remove(),300); },3000);
-}
-
-// ── UTIL ──
-function goTo(sel) {
-  const el = document.querySelector(sel);
-  if (el) el.scrollIntoView({behavior:'smooth'});
-}
 </script>
 </body>
 </html>
