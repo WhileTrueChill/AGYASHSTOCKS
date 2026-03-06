@@ -18,17 +18,9 @@
   }
 
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); overflow-x: hidden; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--paper);
-    color: var(--ink);
-    overflow-x: hidden;
-  }
-
-  /* ─── NOISE TEXTURE ─── */
   body::before {
     content: '';
     position: fixed; inset: 0;
@@ -36,7 +28,6 @@
     pointer-events: none; z-index: 999; opacity: 0.5;
   }
 
-  /* ─── NAVBAR ─── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
@@ -45,329 +36,227 @@
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
-
-  .logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800; font-size: 1.4rem; letter-spacing: -0.03em;
-    color: var(--ink); text-decoration: none;
-  }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; letter-spacing: -0.03em; color: var(--ink); text-decoration: none; }
   .logo span { color: var(--accent); }
-
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a {
-    font-size: 0.875rem; font-weight: 500; color: var(--mid);
-    text-decoration: none; transition: color 0.2s;
-  }
+  .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--mid); text-decoration: none; transition: color 0.2s; cursor: pointer; }
   .nav-links a:hover { color: var(--ink); }
-
-  .nav-cta {
-    background: var(--ink); color: var(--paper);
-    font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.85rem;
-    padding: 0.65rem 1.5rem; border-radius: 100px;
-    text-decoration: none; transition: background 0.2s, transform 0.2s;
-    letter-spacing: 0.02em;
-  }
+  .nav-cta { background: var(--ink); color: var(--paper); font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.85rem; padding: 0.65rem 1.5rem; border-radius: 100px; text-decoration: none; transition: background 0.2s, transform 0.2s; letter-spacing: 0.02em; }
   .nav-cta:hover { background: var(--accent); transform: translateY(-1px); }
 
-  /* ─── HERO ─── */
-  .hero {
-    min-height: 100vh;
-    display: grid; grid-template-columns: 1fr 1fr;
-    align-items: center;
-    padding: 8rem 4rem 4rem;
-    gap: 4rem;
-    position: relative; overflow: hidden;
-  }
-
-  .hero-bg-shape {
-    position: absolute; right: -10%; top: 5%;
-    width: 60vw; height: 85vh;
-    background: linear-gradient(135deg, #e84d2a18 0%, #2a7de818 50%, #f0b42918 100%);
-    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-    animation: morphBlob 8s ease-in-out infinite;
-    z-index: 0;
-  }
-
-  @keyframes morphBlob {
-    0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg); }
-    33% { border-radius: 70% 30% 50% 50% / 30% 60% 40% 70%; transform: rotate(5deg); }
-    66% { border-radius: 30% 70% 30% 70% / 60% 30% 70% 40%; transform: rotate(-5deg); }
-  }
-
+  /* HERO */
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 8rem 4rem 4rem; gap: 4rem; position: relative; overflow: hidden; }
+  .hero-bg-shape { position: absolute; right: -10%; top: 5%; width: 60vw; height: 85vh; background: linear-gradient(135deg, #e84d2a18 0%, #2a7de818 50%, #f0b42918 100%); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; animation: morphBlob 8s ease-in-out infinite; z-index: 0; }
+  @keyframes morphBlob { 0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg); } 33% { border-radius: 70% 30% 50% 50% / 30% 60% 40% 70%; transform: rotate(5deg); } 66% { border-radius: 30% 70% 30% 70% / 60% 30% 70% 40%; transform: rotate(-5deg); } }
   .hero-content { position: relative; z-index: 1; }
-
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    background: var(--gold); color: var(--ink);
-    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 0.4rem 1rem; border-radius: 100px;
-    margin-bottom: 1.5rem;
-    animation: fadeUp 0.6s ease both;
-  }
-
+  .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--gold); color: var(--ink); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 1.5rem; animation: fadeUp 0.6s ease both; }
   .hero-badge::before { content: '✦'; font-size: 0.65rem; }
-
-  h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2.8rem, 5vw, 4.5rem);
-    font-weight: 800; line-height: 1.05;
-    letter-spacing: -0.03em;
-    animation: fadeUp 0.7s 0.1s ease both;
-  }
-
-  h1 em {
-    font-style: normal;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-
-  .hero-sub {
-    font-size: 1.1rem; color: var(--mid); line-height: 1.7;
-    margin: 1.5rem 0 2.5rem; max-width: 480px;
-    animation: fadeUp 0.7s 0.2s ease both;
-  }
-
-  .hero-actions {
-    display: flex; gap: 1rem; align-items: center;
-    animation: fadeUp 0.7s 0.3s ease both;
-  }
-
-  .btn-primary {
-    background: var(--accent); color: #fff;
-    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
-    padding: 0.9rem 2rem; border-radius: 100px;
-    text-decoration: none; border: none; cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 20px rgba(232,77,42,0.35);
-  }
+  h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; animation: fadeUp 0.7s 0.1s ease both; }
+  h1 em { font-style: normal; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero-sub { font-size: 1.1rem; color: var(--mid); line-height: 1.7; margin: 1.5rem 0 2.5rem; max-width: 480px; animation: fadeUp 0.7s 0.2s ease both; }
+  .hero-actions { display: flex; gap: 1rem; align-items: center; animation: fadeUp 0.7s 0.3s ease both; }
+  .btn-primary { background: var(--accent); color: #fff; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; padding: 0.9rem 2rem; border-radius: 100px; text-decoration: none; border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(232,77,42,0.35); display: inline-block; }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(232,77,42,0.45); }
-
-  .btn-ghost {
-    font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.9rem;
-    color: var(--ink); text-decoration: none;
-    display: flex; align-items: center; gap: 0.5rem;
-    border-bottom: 2px solid var(--ink); padding-bottom: 2px;
-    transition: color 0.2s, border-color 0.2s;
-  }
+  .btn-ghost { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.9rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; border-bottom: 2px solid var(--ink); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; cursor: pointer; }
   .btn-ghost:hover { color: var(--accent); border-color: var(--accent); }
-
-  .hero-stats {
-    display: flex; gap: 2.5rem; margin-top: 3.5rem;
-    animation: fadeUp 0.7s 0.4s ease both;
-  }
-  .stat-num {
-    font-family: 'Syne', sans-serif; font-size: 1.8rem;
-    font-weight: 800; letter-spacing: -0.02em;
-  }
+  .hero-stats { display: flex; gap: 2.5rem; margin-top: 3.5rem; animation: fadeUp 0.7s 0.4s ease both; }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em; }
   .stat-num span { color: var(--accent); }
   .stat-label { font-size: 0.8rem; color: var(--mid); font-weight: 500; margin-top: 0.2rem; }
-
-  /* ─── HERO VISUAL ─── */
-  .hero-visual {
-    position: relative; z-index: 1;
-    animation: fadeUp 0.8s 0.2s ease both;
-  }
-
-  .course-card-stack {
-    position: relative; width: 100%; max-width: 420px; margin: 0 auto;
-  }
-
-  .card-back, .card-front {
-    border-radius: 20px;
-    padding: 1.5rem;
-    position: absolute;
-  }
-
-  .card-back {
-    width: 85%; background: var(--ink); color: var(--paper);
-    top: 30px; right: -10px;
-    transform: rotate(4deg);
-    padding: 1.8rem;
-  }
-
-  .card-back .cb-tag {
-    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 0.8rem;
-  }
-  .card-back .cb-title {
-    font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; line-height: 1.3;
-  }
-
-  .card-front {
-    width: 88%; background: #fff;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-    top: 0; left: 0;
-    z-index: 2;
-  }
-
-  .course-thumb {
-    width: 100%; height: 160px; border-radius: 12px;
-    background: linear-gradient(135deg, #2a7de8, #e84d2a);
-    margin-bottom: 1rem;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 3rem;
-  }
-
+  .hero-visual { position: relative; z-index: 1; animation: fadeUp 0.8s 0.2s ease both; }
+  .course-card-stack { position: relative; width: 100%; max-width: 420px; margin: 0 auto; }
+  .card-back { border-radius: 20px; padding: 1.8rem; position: absolute; width: 85%; background: var(--ink); color: var(--paper); top: 30px; right: -10px; transform: rotate(4deg); }
+  .card-back .cb-tag { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+  .card-back .cb-title { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; line-height: 1.3; }
+  .card-front { border-radius: 20px; padding: 1.5rem; position: absolute; width: 88%; background: #fff; box-shadow: 0 20px 60px rgba(0,0,0,0.15); top: 0; left: 0; z-index: 2; }
+  .course-thumb { width: 100%; height: 160px; border-radius: 12px; background: linear-gradient(135deg, #2a7de8, #e84d2a); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
   .course-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
-  .course-tag {
-    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-    background: rgba(232,77,42,0.1); color: var(--accent);
-    padding: 0.25rem 0.7rem; border-radius: 100px;
-  }
+  .course-tag { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; background: rgba(232,77,42,0.1); color: var(--accent); padding: 0.25rem 0.7rem; border-radius: 100px; }
   .course-rating { font-size: 0.8rem; font-weight: 600; color: var(--gold); }
-  .course-title {
-    font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700;
-    line-height: 1.3; margin-bottom: 0.8rem;
-  }
-
-  .course-progress-bar {
-    background: rgba(10,10,15,0.08); border-radius: 100px; height: 5px; margin-bottom: 0.4rem;
-  }
-  .course-progress-fill {
-    height: 100%; border-radius: 100px;
-    background: linear-gradient(90deg, var(--accent2), var(--accent));
-    width: 68%; transition: width 1s ease;
-  }
-
+  .course-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; line-height: 1.3; margin-bottom: 0.8rem; }
+  .course-progress-bar { background: rgba(10,10,15,0.08); border-radius: 100px; height: 5px; margin-bottom: 0.4rem; }
+  .course-progress-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--accent2), var(--accent)); width: 68%; }
   .progress-label { font-size: 0.75rem; color: var(--mid); }
-
-  /* floating badges on hero */
-  .float-badge {
-    position: absolute; background: #fff;
-    border-radius: 14px; padding: 0.7rem 1rem;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-    display: flex; align-items: center; gap: 0.6rem;
-    font-size: 0.8rem; font-weight: 600;
-    animation: float 4s ease-in-out infinite;
-    z-index: 3;
-  }
+  .float-badge { position: absolute; background: #fff; border-radius: 14px; padding: 0.7rem 1rem; box-shadow: 0 8px 30px rgba(0,0,0,0.12); display: flex; align-items: center; gap: 0.6rem; font-size: 0.8rem; font-weight: 600; animation: float 4s ease-in-out infinite; z-index: 3; }
   .float-badge .fb-icon { font-size: 1.2rem; }
   .float-badge.f1 { bottom: -20px; right: -20px; animation-delay: 0s; }
   .float-badge.f2 { top: -15px; left: 10px; animation-delay: 1.5s; }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
-  }
-
-  /* ─── SECTION COMMON ─── */
+  /* SECTIONS */
   section { padding: 6rem 4rem; }
-  .section-label {
-    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 0.8rem;
-    display: flex; align-items: center; gap: 0.5rem;
-  }
+  .section-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
   .section-label::before { content: ''; display: block; width: 24px; height: 2px; background: var(--accent); }
+  .section-title { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; max-width: 600px; }
 
-  .section-title {
-    font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3vw, 2.8rem);
-    font-weight: 800; letter-spacing: -0.02em; line-height: 1.1;
-    max-width: 600px;
-  }
-
-  /* ─── CATEGORIES ─── */
+  /* CATEGORIES */
   .categories { background: var(--ink); color: var(--paper); }
   .categories .section-label { color: var(--gold); }
   .categories .section-label::before { background: var(--gold); }
-
-  .cat-header {
-    display: flex; justify-content: space-between; align-items: flex-end;
-    margin-bottom: 3rem;
-  }
+  .cat-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
   .cat-header .section-title { color: var(--paper); }
-
-  .cat-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem;
-  }
-
-  .cat-card {
-    border: 1px solid rgba(244,241,235,0.1);
-    border-radius: 16px; padding: 1.5rem;
-    cursor: pointer; transition: all 0.25s;
-    position: relative; overflow: hidden;
-  }
-  .cat-card::before {
-    content: ''; position: absolute; inset: 0;
-    background: var(--cat-color, rgba(255,255,255,0.05));
-    opacity: 0; transition: opacity 0.25s;
-  }
+  .cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+  .cat-card { border: 1px solid rgba(244,241,235,0.1); border-radius: 16px; padding: 1.5rem; cursor: pointer; transition: all 0.25s; position: relative; overflow: hidden; }
+  .cat-card::before { content: ''; position: absolute; inset: 0; background: var(--cat-color, rgba(255,255,255,0.05)); opacity: 0; transition: opacity 0.25s; }
   .cat-card:hover { transform: translateY(-4px); border-color: rgba(244,241,235,0.3); }
   .cat-card:hover::before { opacity: 1; }
-
+  .cat-card.active-cat { border-color: var(--gold) !important; background: rgba(240,180,41,0.08); transform: translateY(-4px); }
+  .cat-card.active-cat::before { opacity: 1; }
   .cat-icon { font-size: 2rem; margin-bottom: 1rem; }
-  .cat-name {
-    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
-    margin-bottom: 0.4rem;
-  }
+  .cat-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.4rem; }
   .cat-count { font-size: 0.78rem; color: rgba(244,241,235,0.5); }
 
-  /* ─── FEATURES ─── */
+  /* COURSE LISTING PAGE */
+  .course-listing-overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: var(--paper);
+    transform: translateX(100%);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    overflow-y: auto;
+  }
+  .course-listing-overlay.open { transform: translateX(0); }
+
+  .listing-nav {
+    position: sticky; top: 0; background: rgba(244,241,235,0.92); backdrop-filter: blur(12px);
+    padding: 1.2rem 4rem; display: flex; align-items: center; gap: 1.5rem;
+    border-bottom: 1px solid var(--border); z-index: 10;
+  }
+  .back-btn {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem;
+    color: var(--ink); cursor: pointer; border: none; background: none; padding: 0;
+    transition: color 0.2s; text-decoration: none;
+  }
+  .back-btn:hover { color: var(--accent); }
+  .back-btn .arrow { font-size: 1.1rem; transition: transform 0.2s; }
+  .back-btn:hover .arrow { transform: translateX(-3px); }
+  .listing-breadcrumb { font-size: 0.82rem; color: var(--mid); }
+  .listing-breadcrumb span { color: var(--ink); font-weight: 600; }
+
+  .listing-hero {
+    padding: 4rem 4rem 2rem;
+    background: var(--ink); color: var(--paper);
+    position: relative; overflow: hidden;
+  }
+  .listing-hero::after {
+    content: ''; position: absolute; right: -5%; top: -20%;
+    width: 40vw; height: 140%; border-radius: 50%;
+    background: var(--listing-color, rgba(232,77,42,0.15));
+    pointer-events: none;
+  }
+  .listing-hero-inner { position: relative; z-index: 1; }
+  .listing-cat-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+  .listing-title { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.8rem; }
+  .listing-desc { color: rgba(244,241,235,0.7); font-size: 1rem; line-height: 1.7; max-width: 560px; margin-bottom: 1.5rem; }
+  .listing-meta-row { display: flex; gap: 2rem; }
+  .listing-meta-item { font-size: 0.82rem; color: rgba(244,241,235,0.6); }
+  .listing-meta-item strong { color: var(--paper); font-family: 'Syne', sans-serif; }
+
+  .listing-body { padding: 3rem 4rem; }
+  .listing-filter { display: flex; gap: 0.6rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+  .filter-pill {
+    font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 600;
+    padding: 0.4rem 1rem; border-radius: 100px; border: 1.5px solid var(--border);
+    background: transparent; color: var(--mid); cursor: pointer; transition: all 0.2s;
+  }
+  .filter-pill.active, .filter-pill:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  .listing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+  /* COURSE DETAIL PAGE */
+  .course-detail-overlay {
+    position: fixed; inset: 0; z-index: 300;
+    background: var(--paper);
+    transform: translateX(100%);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    overflow-y: auto;
+  }
+  .course-detail-overlay.open { transform: translateX(0); }
+
+  .detail-nav {
+    position: sticky; top: 0; background: rgba(244,241,235,0.92); backdrop-filter: blur(12px);
+    padding: 1.2rem 4rem; display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--border); z-index: 10;
+  }
+  .detail-hero {
+    background: var(--ink); color: var(--paper);
+    padding: 5rem 4rem; display: grid; grid-template-columns: 1fr 380px; gap: 4rem; align-items: center;
+    position: relative; overflow: hidden;
+  }
+  .detail-hero::before { content: ''; position: absolute; right: -10%; top: -30%; width: 50vw; height: 160%; border-radius: 50%; background: var(--listing-color, rgba(232,77,42,0.12)); pointer-events: none; }
+  .detail-hero-content { position: relative; z-index: 1; }
+  .detail-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.1); color: var(--gold); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 100px; margin-bottom: 1.2rem; }
+  .detail-title { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1rem; }
+  .detail-sub { color: rgba(244,241,235,0.7); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem; max-width: 520px; }
+  .detail-stats-row { display: flex; gap: 2rem; flex-wrap: wrap; }
+  .detail-stat { font-size: 0.82rem; color: rgba(244,241,235,0.6); }
+  .detail-stat strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--paper); }
+  .detail-enroll-card {
+    background: #fff; border-radius: 20px; padding: 2rem;
+    position: relative; z-index: 1;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  }
+  .detail-thumb { width: 100%; height: 160px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 4rem; margin-bottom: 1.2rem; }
+  .detail-price-row { display: flex; align-items: baseline; gap: 0.8rem; margin-bottom: 0.4rem; }
+  .detail-price { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--ink); }
+  .detail-price-old { font-size: 1rem; color: var(--mid); text-decoration: line-through; }
+  .detail-discount { background: rgba(232,77,42,0.1); color: var(--accent); font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 100px; }
+  .detail-enroll-btn { width: 100%; background: var(--accent); color: #fff; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; padding: 1rem; border-radius: 12px; border: none; cursor: pointer; margin-top: 1rem; transition: background 0.2s, transform 0.2s; box-shadow: 0 4px 20px rgba(232,77,42,0.3); }
+  .detail-enroll-btn:hover { background: #d43d1a; transform: translateY(-1px); }
+  .detail-guarantee { text-align: center; font-size: 0.75rem; color: var(--mid); margin-top: 0.8rem; }
+
+  .detail-body { padding: 3rem 4rem; display: grid; grid-template-columns: 1fr 380px; gap: 4rem; }
+  .what-learn { margin-bottom: 2.5rem; }
+  .what-learn h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; margin-bottom: 1.2rem; }
+  .learn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+  .learn-item { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.87rem; line-height: 1.5; }
+  .learn-item::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .curriculum h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; margin-bottom: 1.2rem; }
+  .module { border: 1px solid var(--border); border-radius: 12px; margin-bottom: 0.7rem; overflow: hidden; }
+  .module-header { padding: 1rem 1.2rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer; background: #fff; transition: background 0.2s; }
+  .module-header:hover { background: rgba(10,10,15,0.03); }
+  .module-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; }
+  .module-lessons { font-size: 0.78rem; color: var(--mid); }
+  .sidebar-card { background: #fff; border-radius: 16px; padding: 1.5rem; border: 1px solid var(--border); margin-bottom: 1rem; }
+  .sidebar-card h4 { font-family: 'Syne', sans-serif; font-weight: 700; margin-bottom: 1rem; font-size: 0.95rem; }
+  .instructor-row { display: flex; align-items: center; gap: 1rem; }
+  .instructor-avatar { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: #fff; flex-shrink: 0; }
+  .instructor-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; }
+  .instructor-bio { font-size: 0.8rem; color: var(--mid); line-height: 1.5; margin-top: 0.3rem; }
+  .include-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .include-list li { font-size: 0.85rem; display: flex; align-items: center; gap: 0.6rem; }
+  .include-list li::before { font-size: 1rem; }
+
+  /* FEATURES */
   .features { background: var(--paper); }
   .feat-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 3rem; }
-  .feat-visual {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
-  }
-
-  .feat-tile {
-    border-radius: 20px; padding: 1.5rem;
-    display: flex; flex-direction: column; gap: 0.8rem;
-    transition: transform 0.2s;
-  }
+  .feat-visual { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .feat-tile { border-radius: 20px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.8rem; transition: transform 0.2s; }
   .feat-tile:hover { transform: translateY(-3px); }
-  .feat-tile.big { grid-column: span 2; flex-direction: row; align-items: center; }
   .feat-tile.t1 { background: var(--ink); color: var(--paper); }
   .feat-tile.t2 { background: var(--accent); color: #fff; }
   .feat-tile.t3 { background: var(--paper); border: 1.5px solid var(--border); }
   .feat-tile.t4 { background: var(--accent2); color: #fff; }
-
   .feat-tile-icon { font-size: 2rem; }
   .feat-tile-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; }
   .feat-tile-desc { font-size: 0.82rem; line-height: 1.5; opacity: 0.75; }
-
   .feat-list { display: flex; flex-direction: column; gap: 1.8rem; }
   .feat-item { display: flex; gap: 1.2rem; align-items: flex-start; }
-  .feat-item-num {
-    font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700;
-    color: var(--accent); min-width: 28px;
-    border: 1.5px solid var(--accent); border-radius: 50%;
-    width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; margin-top: 2px;
-  }
+  .feat-item-num { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--accent); min-width: 28px; border: 1.5px solid var(--accent); border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
   .feat-item-title { font-family: 'Syne', sans-serif; font-weight: 700; margin-bottom: 0.3rem; }
   .feat-item-desc { font-size: 0.88rem; color: var(--mid); line-height: 1.6; }
 
-  /* ─── COURSES ─── */
+  /* COURSES SECTION */
   .courses-section { background: var(--paper); border-top: 1px solid var(--border); }
   .courses-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; }
   .courses-filter { display: flex; gap: 0.6rem; margin-bottom: 2rem; }
-  .filter-btn {
-    font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600;
-    padding: 0.4rem 1rem; border-radius: 100px; border: 1.5px solid var(--border);
-    background: transparent; color: var(--mid); cursor: pointer; transition: all 0.2s;
-  }
-  .filter-btn.active, .filter-btn:hover {
-    background: var(--ink); color: var(--paper); border-color: var(--ink);
-  }
-
+  .filter-btn { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 100px; border: 1.5px solid var(--border); background: transparent; color: var(--mid); cursor: pointer; transition: all 0.2s; }
+  .filter-btn.active, .filter-btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
   .courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-
-  .course-card {
-    border-radius: 20px; overflow: hidden;
-    background: #fff; border: 1px solid var(--border);
-    transition: transform 0.25s, box-shadow 0.25s;
-  }
+  .course-card { border-radius: 20px; overflow: hidden; background: #fff; border: 1px solid var(--border); transition: transform 0.25s, box-shadow 0.25s; cursor: pointer; }
   .course-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
-
-  .cc-thumb {
-    height: 180px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem;
-    position: relative;
-  }
-  .cc-badge {
-    position: absolute; top: 1rem; left: 1rem;
-    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-    padding: 0.3rem 0.7rem; border-radius: 100px; background: rgba(255,255,255,0.9);
-  }
-
+  .cc-thumb { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; position: relative; }
+  .cc-badge { position: absolute; top: 1rem; left: 1rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 100px; background: rgba(255,255,255,0.9); }
   .cc-body { padding: 1.3rem; }
   .cc-meta { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
   .cc-cat { font-size: 0.72rem; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 0.08em; }
@@ -376,90 +265,59 @@
   .cc-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 0.8rem; border-top: 1px solid var(--border); }
   .cc-price { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; }
   .cc-price span { font-size: 0.75rem; font-weight: 400; color: var(--mid); text-decoration: line-through; margin-right: 4px; }
-  .cc-enroll {
-    font-size: 0.78rem; font-weight: 600; color: var(--accent2);
-    text-decoration: none; display: flex; align-items: center; gap: 0.3rem;
-    transition: gap 0.2s;
-  }
+  .cc-enroll { font-size: 0.78rem; font-weight: 600; color: var(--accent2); text-decoration: none; display: flex; align-items: center; gap: 0.3rem; transition: gap 0.2s; }
   .cc-enroll:hover { gap: 0.6rem; }
 
-  /* ─── TESTIMONIALS ─── */
+  /* TESTIMONIALS */
   .testimonials { background: var(--ink); color: var(--paper); overflow: hidden; }
   .testi-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
   .testi-header .section-label { color: var(--gold); }
   .testi-header .section-label::before { background: var(--gold); }
   .testi-header .section-title { color: var(--paper); }
-
   .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-  .testi-card {
-    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 20px; padding: 1.8rem;
-    transition: background 0.2s, transform 0.2s;
-  }
+  .testi-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 1.8rem; transition: background 0.2s, transform 0.2s; }
   .testi-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-3px); }
-
   .testi-quote { font-size: 2rem; color: var(--accent); line-height: 1; margin-bottom: 1rem; }
   .testi-text { font-size: 0.9rem; line-height: 1.7; color: rgba(244,241,235,0.8); margin-bottom: 1.5rem; }
   .testi-author { display: flex; align-items: center; gap: 1rem; }
-  .testi-avatar {
-    width: 40px; height: 40px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem;
-    color: #fff; flex-shrink: 0;
-  }
+  .testi-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; color: #fff; flex-shrink: 0; }
   .testi-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.88rem; }
   .testi-role { font-size: 0.75rem; color: rgba(244,241,235,0.5); }
 
-  /* ─── CTA ─── */
+  /* CTA */
   .cta-section { padding: 6rem 4rem; text-align: center; }
-  .cta-inner {
-    background: var(--ink); border-radius: 28px; padding: 5rem 4rem;
-    position: relative; overflow: hidden;
-  }
-  .cta-inner::before {
-    content: '';
-    position: absolute; width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(232,77,42,0.2) 0%, transparent 70%);
-    top: -200px; left: -100px;
-  }
-  .cta-inner::after {
-    content: '';
-    position: absolute; width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(42,125,232,0.2) 0%, transparent 70%);
-    bottom: -200px; right: -100px;
-  }
+  .cta-inner { background: var(--ink); border-radius: 28px; padding: 5rem 4rem; position: relative; overflow: hidden; }
+  .cta-inner::before { content: ''; position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(232,77,42,0.2) 0%, transparent 70%); top: -200px; left: -100px; }
+  .cta-inner::after { content: ''; position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(42,125,232,0.2) 0%, transparent 70%); bottom: -200px; right: -100px; }
   .cta-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
-  .cta-title {
-    font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem);
-    font-weight: 800; color: var(--paper); letter-spacing: -0.02em; line-height: 1.1;
-    margin-bottom: 1.5rem; position: relative; z-index: 1;
-  }
+  .cta-title { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; color: var(--paper); letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1.5rem; position: relative; z-index: 1; }
   .cta-sub { font-size: 1rem; color: rgba(244,241,235,0.65); max-width: 500px; margin: 0 auto 2.5rem; position: relative; z-index: 1; line-height: 1.7; }
   .cta-actions { display: flex; gap: 1rem; justify-content: center; position: relative; z-index: 1; }
 
-  /* ─── FOOTER ─── */
-  footer {
-    background: var(--ink); color: rgba(244,241,235,0.6);
-    padding: 3rem 4rem;
-    display: flex; justify-content: space-between; align-items: center;
-    border-top: 1px solid rgba(244,241,235,0.08);
-  }
+  /* FOOTER */
+  footer { background: var(--ink); color: rgba(244,241,235,0.6); padding: 3rem 4rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(244,241,235,0.08); }
   footer .logo { color: var(--paper); }
   footer .footer-links { display: flex; gap: 2rem; }
   footer .footer-links a { font-size: 0.82rem; color: rgba(244,241,235,0.5); text-decoration: none; transition: color 0.2s; }
   footer .footer-links a:hover { color: var(--paper); }
   footer .footer-copy { font-size: 0.78rem; }
 
-  /* ─── ANIMATIONS ─── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ─── SCROLL REVEAL ─── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
   .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* card animate in listing */
+  .card-in { animation: fadeUp 0.4s ease both; }
+
+  /* Toast notification */
+  .toast {
+    position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: var(--ink); color: var(--paper); border-radius: 100px; padding: 0.8rem 1.8rem;
+    font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.85rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25); z-index: 9999;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
 </style>
 </head>
 <body>
@@ -468,9 +326,9 @@
 <nav>
   <a href="#" class="logo">AGYASH<span>Course</span></a>
   <ul class="nav-links">
-    <li><a href="#categories">Courses</a></li>
-    <li><a href="#features">Features</a></li>
-    <li><a href="#testimonials">Reviews</a></li>
+    <li><a onclick="scrollToSection('categories')">Courses</a></li>
+    <li><a onclick="scrollToSection('features')">Features</a></li>
+    <li><a onclick="scrollToSection('testimonials')">Reviews</a></li>
     <li><a href="#">Pricing</a></li>
   </ul>
   <a href="#" class="nav-cta">Start Learning →</a>
@@ -479,57 +337,32 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg-shape"></div>
-
   <div class="hero-content">
     <div class="hero-badge">New Courses Added Weekly</div>
     <h1>Learn Skills That <em>Shape</em> Your Future</h1>
     <p class="hero-sub">AGYASHCourse delivers structured, beginner-to-advanced learning paths with real-world examples. Access courses anytime, anywhere — and grow at your own pace.</p>
     <div class="hero-actions">
-      <a href="#" class="btn-primary">Explore Courses</a>
-      <a href="#features" class="btn-ghost">See how it works →</a>
+      <button class="btn-primary" onclick="scrollToSection('categories')">Explore Courses</button>
+      <button class="btn-ghost" onclick="scrollToSection('features')">See how it works →</button>
     </div>
     <div class="hero-stats">
-      <div>
-        <div class="stat-num">12k<span>+</span></div>
-        <div class="stat-label">Active Learners</div>
-      </div>
-      <div>
-        <div class="stat-num">200<span>+</span></div>
-        <div class="stat-label">Courses Available</div>
-      </div>
-      <div>
-        <div class="stat-num">98<span>%</span></div>
-        <div class="stat-label">Satisfaction Rate</div>
-      </div>
+      <div><div class="stat-num">12k<span>+</span></div><div class="stat-label">Active Learners</div></div>
+      <div><div class="stat-num">200<span>+</span></div><div class="stat-label">Courses Available</div></div>
+      <div><div class="stat-num">98<span>%</span></div><div class="stat-label">Satisfaction Rate</div></div>
     </div>
   </div>
-
   <div class="hero-visual">
-    <div class="course-card-stack" style="height: 360px;">
-      <div class="card-back">
-        <div class="cb-tag">Web Development</div>
-        <div class="cb-title">Advanced React & Node.js Masterclass</div>
-      </div>
+    <div class="course-card-stack" style="height:360px">
+      <div class="card-back"><div class="cb-tag">Web Development</div><div class="cb-title">Advanced React & Node.js Masterclass</div></div>
       <div class="card-front">
         <div class="course-thumb">💻</div>
-        <div class="course-meta">
-          <span class="course-tag">Design</span>
-          <span class="course-rating">★ 4.9</span>
-        </div>
+        <div class="course-meta"><span class="course-tag">Design</span><span class="course-rating">★ 4.9</span></div>
         <div class="course-title">UI/UX Design Fundamentals for Beginners</div>
-        <div class="course-progress-bar">
-          <div class="course-progress-fill"></div>
-        </div>
+        <div class="course-progress-bar"><div class="course-progress-fill"></div></div>
         <div class="progress-label">68% completed • 3h left</div>
       </div>
-      <div class="float-badge f1">
-        <span class="fb-icon">🏆</span>
-        <span>Top Rated Course</span>
-      </div>
-      <div class="float-badge f2">
-        <span class="fb-icon">⚡</span>
-        <span>Updated 2025</span>
-      </div>
+      <div class="float-badge f1"><span class="fb-icon">🏆</span><span>Top Rated Course</span></div>
+      <div class="float-badge f2"><span class="fb-icon">⚡</span><span>Updated 2025</span></div>
     </div>
   </div>
 </section>
@@ -537,53 +370,18 @@
 <!-- CATEGORIES -->
 <section class="categories" id="categories">
   <div class="cat-header">
-    <div>
-      <div class="section-label">Browse</div>
-      <div class="section-title">Explore Course Categories</div>
-    </div>
-    <a href="#" style="font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:600;color:rgba(244,241,235,0.6);text-decoration:none;">View all →</a>
+    <div><div class="section-label">Browse</div><div class="section-title">Explore Course Categories</div></div>
+    <button onclick="openAllCategories()" style="font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:600;color:rgba(244,241,235,0.6);text-decoration:none;background:none;border:none;cursor:pointer;transition:color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(244,241,235,0.6)'">View all →</button>
   </div>
   <div class="cat-grid reveal">
-    <div class="cat-card" style="--cat-color: rgba(232,77,42,0.1)">
-      <div class="cat-icon">💻</div>
-      <div class="cat-name">Web Development</div>
-      <div class="cat-count">48 courses</div>
-    </div>
-    <div class="cat-card" style="--cat-color: rgba(240,180,41,0.1)">
-      <div class="cat-icon">🎨</div>
-      <div class="cat-name">UI/UX Design</div>
-      <div class="cat-count">32 courses</div>
-    </div>
-    <div class="cat-card" style="--cat-color: rgba(42,125,232,0.1)">
-      <div class="cat-icon">📊</div>
-      <div class="cat-name">Data Science</div>
-      <div class="cat-count">27 courses</div>
-    </div>
-    <div class="cat-card" style="--cat-color: rgba(100,200,100,0.1)">
-      <div class="cat-icon">📱</div>
-      <div class="cat-name">Mobile Dev</div>
-      <div class="cat-count">21 courses</div>
-    </div>
-    <div class="cat-card" style="--cat-color: rgba(180,100,230,0.1)">
-      <div class="cat-icon">🤖</div>
-      <div class="cat-name">AI & Machine Learning</div>
-      <div class="cat-count">19 courses</div>
-    </div>
-    <div class="cat-card" style="--cat-color: rgba(255,100,130,0.1)">
-      <div class="cat-icon">💼</div>
-      <div class="cat-name">Business & Finance</div>
-      <div class="cat-count">35 courses</div>
-    </div>
-    <div class="cat-card" style="--cat-color: rgba(255,165,0,0.1)">
-      <div class="cat-icon">📝</div>
-      <div class="cat-name">Content & Writing</div>
-      <div class="cat-count">18 courses</div>
-    </div>
-    <div class="cat-card" style="--cat-color: rgba(42,232,200,0.1)">
-      <div class="cat-icon">🔒</div>
-      <div class="cat-name">Cybersecurity</div>
-      <div class="cat-count">14 courses</div>
-    </div>
+    <div class="cat-card" style="--cat-color:rgba(232,77,42,0.1)" onclick="openCategory('webdev')"><div class="cat-icon">💻</div><div class="cat-name">Web Development</div><div class="cat-count">48 courses</div></div>
+    <div class="cat-card" style="--cat-color:rgba(240,180,41,0.1)" onclick="openCategory('design')"><div class="cat-icon">🎨</div><div class="cat-name">UI/UX Design</div><div class="cat-count">32 courses</div></div>
+    <div class="cat-card" style="--cat-color:rgba(42,125,232,0.1)" onclick="openCategory('data')"><div class="cat-icon">📊</div><div class="cat-name">Data Science</div><div class="cat-count">27 courses</div></div>
+    <div class="cat-card" style="--cat-color:rgba(100,200,100,0.1)" onclick="openCategory('mobile')"><div class="cat-icon">📱</div><div class="cat-name">Mobile Dev</div><div class="cat-count">21 courses</div></div>
+    <div class="cat-card" style="--cat-color:rgba(180,100,230,0.1)" onclick="openCategory('ai')"><div class="cat-icon">🤖</div><div class="cat-name">AI & Machine Learning</div><div class="cat-count">19 courses</div></div>
+    <div class="cat-card" style="--cat-color:rgba(255,100,130,0.1)" onclick="openCategory('business')"><div class="cat-icon">💼</div><div class="cat-name">Business & Finance</div><div class="cat-count">35 courses</div></div>
+    <div class="cat-card" style="--cat-color:rgba(255,165,0,0.1)" onclick="openCategory('writing')"><div class="cat-icon">📝</div><div class="cat-name">Content & Writing</div><div class="cat-count">18 courses</div></div>
+    <div class="cat-card" style="--cat-color:rgba(42,232,200,0.1)" onclick="openCategory('cyber')"><div class="cat-icon">🔒</div><div class="cat-name">Cybersecurity</div><div class="cat-count">14 courses</div></div>
   </div>
 </section>
 
@@ -592,168 +390,46 @@
   <div class="section-label">Why us</div>
   <div class="feat-layout reveal">
     <div class="feat-visual">
-      <div class="feat-tile t1">
-        <div class="feat-tile-icon">📈</div>
-        <div class="feat-tile-title">Track Your Progress</div>
-        <div class="feat-tile-desc">Visual dashboards show your learning journey at a glance.</div>
-      </div>
-      <div class="feat-tile t2">
-        <div class="feat-tile-icon">🗺️</div>
-        <div class="feat-tile-title">Learning Paths</div>
-        <div class="feat-tile-desc">Curated roadmaps from beginner to expert.</div>
-      </div>
-      <div class="feat-tile t4">
-        <div class="feat-tile-icon">♾️</div>
-        <div class="feat-tile-title">Lifetime Access</div>
-        <div class="feat-tile-desc">Buy once, revisit anytime.</div>
-      </div>
-      <div class="feat-tile t3">
-        <div class="feat-tile-icon">🔄</div>
-        <div class="feat-tile-title">Always Updated</div>
-        <div class="feat-tile-desc">Fresh content added every week.</div>
-      </div>
+      <div class="feat-tile t1" style="cursor:pointer" onclick="openFeature('progress')"><div class="feat-tile-icon">📈</div><div class="feat-tile-title">Track Your Progress</div><div class="feat-tile-desc">Visual dashboards show your learning journey at a glance.</div><div style="margin-top:auto;font-size:0.72rem;opacity:0.6;font-weight:600">Learn more →</div></div>
+      <div class="feat-tile t2" style="cursor:pointer" onclick="openFeature('paths')"><div class="feat-tile-icon">🗺️</div><div class="feat-tile-title">Learning Paths</div><div class="feat-tile-desc">Curated roadmaps from beginner to expert.</div><div style="margin-top:auto;font-size:0.72rem;opacity:0.7;font-weight:600">Learn more →</div></div>
+      <div class="feat-tile t4" style="cursor:pointer" onclick="openFeature('lifetime')"><div class="feat-tile-icon">♾️</div><div class="feat-tile-title">Lifetime Access</div><div class="feat-tile-desc">Buy once, revisit anytime.</div><div style="margin-top:auto;font-size:0.72rem;opacity:0.7;font-weight:600">Learn more →</div></div>
+      <div class="feat-tile t3" style="cursor:pointer" onclick="openFeature('updates')"><div class="feat-tile-icon">🔄</div><div class="feat-tile-title">Always Updated</div><div class="feat-tile-desc">Fresh content added every week.</div><div style="margin-top:auto;font-size:0.72rem;color:var(--mid);font-weight:600">Learn more →</div></div>
     </div>
-
     <div>
       <div class="section-title" style="margin-bottom:2rem">Everything You Need to <em style="font-style:normal;color:var(--accent)">Succeed</em></div>
       <div class="feat-list">
-        <div class="feat-item">
-          <div class="feat-item-num">01</div>
-          <div>
-            <div class="feat-item-title">Flexible, On-Demand Learning</div>
-            <div class="feat-item-desc">Access your courses anytime, from any device. Pause, rewind, and learn at your own schedule — no deadlines, no pressure.</div>
-          </div>
-        </div>
-        <div class="feat-item">
-          <div class="feat-item-num">02</div>
-          <div>
-            <div class="feat-item-title">Real-World Projects</div>
-            <div class="feat-item-desc">Every course includes hands-on projects and practical examples that mirror actual industry scenarios.</div>
-          </div>
-        </div>
-        <div class="feat-item">
-          <div class="feat-item-num">03</div>
-          <div>
-            <div class="feat-item-title">Beginner-Friendly Yet Comprehensive</div>
-            <div class="feat-item-desc">Whether you're starting from zero or leveling up, our courses are designed to meet you exactly where you are.</div>
-          </div>
-        </div>
-        <div class="feat-item">
-          <div class="feat-item-num">04</div>
-          <div>
-            <div class="feat-item-title">Certificates of Completion</div>
-            <div class="feat-item-desc">Earn verifiable certificates that boost your resume and LinkedIn profile upon completing any course.</div>
-          </div>
-        </div>
+        <div class="feat-item"><div class="feat-item-num">01</div><div><div class="feat-item-title">Flexible, On-Demand Learning</div><div class="feat-item-desc">Access your courses anytime, from any device. Pause, rewind, and learn at your own schedule — no deadlines, no pressure.</div></div></div>
+        <div class="feat-item"><div class="feat-item-num">02</div><div><div class="feat-item-title">Real-World Projects</div><div class="feat-item-desc">Every course includes hands-on projects and practical examples that mirror actual industry scenarios.</div></div></div>
+        <div class="feat-item"><div class="feat-item-num">03</div><div><div class="feat-item-title">Beginner-Friendly Yet Comprehensive</div><div class="feat-item-desc">Whether you're starting from zero or leveling up, our courses are designed to meet you exactly where you are.</div></div></div>
+        <div class="feat-item"><div class="feat-item-num">04</div><div><div class="feat-item-title">Certificates of Completion</div><div class="feat-item-desc">Earn verifiable certificates that boost your resume and LinkedIn profile upon completing any course.</div></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- COURSES -->
+<!-- FEATURED COURSES -->
 <section class="courses-section" id="courses">
   <div class="courses-header">
-    <div>
-      <div class="section-label">Popular</div>
-      <div class="section-title">Featured Courses</div>
-    </div>
-    <a href="#" class="btn-ghost">See all courses →</a>
+    <div><div class="section-label">Popular</div><div class="section-title">Featured Courses</div></div>
+    <button class="btn-ghost" onclick="setFeaturedFilter('All')">See all courses →</button>
   </div>
-  <div class="courses-filter">
-    <button class="filter-btn active">All</button>
-    <button class="filter-btn">Development</button>
-    <button class="filter-btn">Design</button>
-    <button class="filter-btn">Data</button>
-    <button class="filter-btn">Business</button>
+  <div class="courses-filter" id="featuredFilterBar">
+    <button class="filter-btn active" onclick="setFeaturedFilter('All')">All</button>
+    <button class="filter-btn" onclick="setFeaturedFilter('Development')">Development</button>
+    <button class="filter-btn" onclick="setFeaturedFilter('Design')">Design</button>
+    <button class="filter-btn" onclick="setFeaturedFilter('Data')">Data</button>
+    <button class="filter-btn" onclick="setFeaturedFilter('Business')">Business</button>
   </div>
-  <div class="courses-grid reveal">
-    <div class="course-card">
-      <div class="cc-thumb" style="background:linear-gradient(135deg,#1a1a2e,#2a7de8)">
-        <span>💻</span>
-        <span class="cc-badge" style="color:var(--accent2)">Bestseller</span>
-      </div>
-      <div class="cc-body">
-        <div class="cc-meta"><span class="cc-cat">Web Dev</span><span class="cc-stars">★ 4.9 (2.3k)</span></div>
-        <div class="cc-title">Full Stack Web Development Bootcamp 2025</div>
-        <div class="cc-footer">
-          <div class="cc-price"><span>₹4,999</span>₹1,499</div>
-          <a href="#" class="cc-enroll">Enroll Now →</a>
-        </div>
-      </div>
-    </div>
-    <div class="course-card">
-      <div class="cc-thumb" style="background:linear-gradient(135deg,#2d1b5e,#e84d2a)">
-        <span>🎨</span>
-        <span class="cc-badge" style="color:var(--accent)">New</span>
-      </div>
-      <div class="cc-body">
-        <div class="cc-meta"><span class="cc-cat">Design</span><span class="cc-stars">★ 4.8 (1.7k)</span></div>
-        <div class="cc-title">Figma UI/UX Design — Zero to Professional</div>
-        <div class="cc-footer">
-          <div class="cc-price"><span>₹3,999</span>₹1,199</div>
-          <a href="#" class="cc-enroll">Enroll Now →</a>
-        </div>
-      </div>
-    </div>
-    <div class="course-card">
-      <div class="cc-thumb" style="background:linear-gradient(135deg,#0f3460,#f0b429)">
-        <span>🤖</span>
-        <span class="cc-badge" style="color:var(--gold)">Trending</span>
-      </div>
-      <div class="cc-body">
-        <div class="cc-meta"><span class="cc-cat">AI / ML</span><span class="cc-stars">★ 5.0 (984)</span></div>
-        <div class="cc-title">Python for AI & Machine Learning — Complete Guide</div>
-        <div class="cc-footer">
-          <div class="cc-price"><span>₹5,999</span>₹1,799</div>
-          <a href="#" class="cc-enroll">Enroll Now →</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="courses-grid" id="featuredGrid"></div>
 </section>
 
 <!-- TESTIMONIALS -->
 <section class="testimonials" id="testimonials">
-  <div class="testi-header">
-    <div>
-      <div class="section-label">Testimonials</div>
-      <div class="section-title">What Our Learners Say</div>
-    </div>
-  </div>
+  <div class="testi-header"><div><div class="section-label">Testimonials</div><div class="section-title">What Our Learners Say</div></div></div>
   <div class="testi-grid reveal">
-    <div class="testi-card">
-      <div class="testi-quote">"</div>
-      <div class="testi-text">AGYASHCourse completely changed how I approach learning. The structured paths kept me focused, and I landed my first dev job within 4 months of finishing the bootcamp.</div>
-      <div class="testi-author">
-        <div class="testi-avatar">RK</div>
-        <div>
-          <div class="testi-name">Rahul Kumar</div>
-          <div class="testi-role">Junior Developer @ TechIndia</div>
-        </div>
-      </div>
-    </div>
-    <div class="testi-card">
-      <div class="testi-quote">"</div>
-      <div class="testi-text">I've tried many online platforms, but AGYASHCourse stands out for its real-world projects. The design course gave me a portfolio that I'm genuinely proud of.</div>
-      <div class="testi-author">
-        <div class="testi-avatar">PS</div>
-        <div>
-          <div class="testi-name">Priya Sharma</div>
-          <div class="testi-role">Freelance UI Designer</div>
-        </div>
-      </div>
-    </div>
-    <div class="testi-card">
-      <div class="testi-quote">"</div>
-      <div class="testi-text">The progress tracking feature kept me accountable. I completed the data science course in 6 weeks while working full-time — something I never thought possible.</div>
-      <div class="testi-author">
-        <div class="testi-avatar">AM</div>
-        <div>
-          <div class="testi-name">Arjun Mehta</div>
-          <div class="testi-role">Data Analyst @ Infosys</div>
-        </div>
-      </div>
-    </div>
+    <div class="testi-card"><div class="testi-quote">"</div><div class="testi-text">AGYASHCourse completely changed how I approach learning. The structured paths kept me focused, and I landed my first dev job within 4 months of finishing the bootcamp.</div><div class="testi-author"><div class="testi-avatar">RK</div><div><div class="testi-name">Rahul Kumar</div><div class="testi-role">Junior Developer @ TechIndia</div></div></div></div>
+    <div class="testi-card"><div class="testi-quote">"</div><div class="testi-text">I've tried many online platforms, but AGYASHCourse stands out for its real-world projects. The design course gave me a portfolio that I'm genuinely proud of.</div><div class="testi-author"><div class="testi-avatar">PS</div><div><div class="testi-name">Priya Sharma</div><div class="testi-role">Freelance UI Designer</div></div></div></div>
+    <div class="testi-card"><div class="testi-quote">"</div><div class="testi-text">The progress tracking feature kept me accountable. I completed the data science course in 6 weeks while working full-time — something I never thought possible.</div><div class="testi-author"><div class="testi-avatar">AM</div><div><div class="testi-name">Arjun Mehta</div><div class="testi-role">Data Analyst @ Infosys</div></div></div></div>
   </div>
 </section>
 
@@ -764,8 +440,8 @@
     <h2 class="cta-title">Your Next Skill Starts<br>Right Here</h2>
     <p class="cta-sub">Flexible access, affordable pricing, and expert-crafted content — everything you need to grow your career on your own terms.</p>
     <div class="cta-actions">
-      <a href="#" class="btn-primary">Get Started Free</a>
-      <a href="#courses" style="font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:600;color:rgba(244,241,235,0.7);text-decoration:none;padding:0.9rem 0;border-bottom:1px solid rgba(244,241,235,0.3)">Browse Courses →</a>
+      <button class="btn-primary" onclick="scrollToSection('categories')">Get Started Free</button>
+      <a href="#" style="font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:600;color:rgba(244,241,235,0.7);text-decoration:none;padding:0.9rem 0;border-bottom:1px solid rgba(244,241,235,0.3)">Browse Courses →</a>
     </div>
   </div>
 </section>
@@ -773,31 +449,658 @@
 <!-- FOOTER -->
 <footer>
   <a href="#" class="logo">AGYASH<span>Course</span></a>
-  <div class="footer-links">
-    <a href="#">About</a>
-    <a href="#">Courses</a>
-    <a href="#">Pricing</a>
-    <a href="#">Blog</a>
-    <a href="#">Contact</a>
-  </div>
+  <div class="footer-links"><a href="#">About</a><a href="#">Courses</a><a href="#">Pricing</a><a href="#">Blog</a><a href="#">Contact</a></div>
   <div class="footer-copy">© 2025 AGYASHCourse. All rights reserved.</div>
 </footer>
 
-<script>
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-  }, { threshold: 0.1 });
-  reveals.forEach(r => observer.observe(r));
+<!-- ═══════════════════════════════════════════════
+     COURSE LISTING OVERLAY
+══════════════════════════════════════════════════ -->
+<div class="course-listing-overlay" id="listingOverlay">
+  <div class="listing-nav">
+    <button class="back-btn" onclick="closeListing()"><span class="arrow">←</span> Back to Home</button>
+    <div class="listing-breadcrumb">Home → <span id="listingBreadcrumb">Category</span></div>
+  </div>
+  <div class="listing-hero" id="listingHero">
+    <div class="listing-hero-inner">
+      <div class="listing-cat-icon" id="listingIcon">💻</div>
+      <div class="listing-title" id="listingTitle">Category</div>
+      <div class="listing-desc" id="listingDesc">Course description</div>
+      <div class="listing-meta-row">
+        <div class="listing-meta-item"><strong id="listingCount">48</strong> Courses</div>
+        <div class="listing-meta-item"><strong>12k+</strong> Students</div>
+        <div class="listing-meta-item"><strong>★ 4.8</strong> Avg Rating</div>
+      </div>
+    </div>
+  </div>
+  <div class="listing-body">
+    <div class="listing-filter" id="listingFilter"></div>
+    <div class="listing-grid" id="listingGrid"></div>
+  </div>
+</div>
 
-  // Filter buttons
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
+<!-- ═══════════════════════════════════════════════
+     COURSE DETAIL OVERLAY
+══════════════════════════════════════════════════ -->
+<div class="course-detail-overlay" id="detailOverlay">
+  <div class="detail-nav">
+    <button class="back-btn" onclick="closeDetail()"><span class="arrow">←</span> <span id="detailBackLabel">Back to Category</span></button>
+    <button class="btn-primary" style="font-size:0.82rem;padding:0.6rem 1.4rem" onclick="showToast('🎉 Enrolled successfully!')">Enroll Now</button>
+  </div>
+  <div class="detail-hero" id="detailHero">
+    <div class="detail-hero-content">
+      <div class="detail-tag" id="detailTag">Category</div>
+      <div class="detail-title" id="detailTitle">Course Title</div>
+      <div class="detail-sub" id="detailSub">Description</div>
+      <div class="detail-stats-row">
+        <div class="detail-stat"><strong id="dRating">★ 4.9</strong>Rating</div>
+        <div class="detail-stat"><strong id="dStudents">2,300+</strong>Students</div>
+        <div class="detail-stat"><strong id="dDuration">24h</strong>Duration</div>
+        <div class="detail-stat"><strong id="dLevel">Beginner</strong>Level</div>
+      </div>
+    </div>
+    <div class="detail-enroll-card">
+      <div class="detail-thumb" id="detailThumb">💻</div>
+      <div class="detail-price-row">
+        <div class="detail-price" id="detailPrice">₹1,499</div>
+        <div class="detail-price-old" id="detailPriceOld">₹4,999</div>
+        <div class="detail-discount" id="detailDiscount">70% off</div>
+      </div>
+      <div style="font-size:0.75rem;color:var(--mid);margin-top:0.2rem" id="detailOffer">⏳ Offer ends soon!</div>
+      <button class="detail-enroll-btn" onclick="showToast('🎉 Enrolled successfully!')">Enroll Now — <span id="detailBtnPrice">₹1,499</span></button>
+      <div class="detail-guarantee">30-day money-back guarantee</div>
+    </div>
+  </div>
+  <div class="detail-body">
+    <div>
+      <div class="what-learn">
+        <h3>What You'll Learn</h3>
+        <div class="learn-grid" id="learnGrid"></div>
+      </div>
+      <div class="curriculum">
+        <h3>Course Curriculum</h3>
+        <div id="curriculumList"></div>
+      </div>
+    </div>
+    <div>
+      <div class="sidebar-card">
+        <h4>Instructor</h4>
+        <div class="instructor-row">
+          <div class="instructor-avatar" id="instrAvatar" style="background:linear-gradient(135deg,var(--accent),var(--accent2))">AK</div>
+          <div>
+            <div class="instructor-name" id="instrName">Instructor Name</div>
+            <div class="instructor-bio" id="instrBio">Bio here</div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar-card">
+        <h4>This Course Includes</h4>
+        <ul class="include-list" id="includeList"></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURE MODAL -->
+<div id="featureModalBg" onclick="closeFeature()" style="display:none;position:fixed;inset:0;background:rgba(10,10,15,0.55);z-index:400;backdrop-filter:blur(4px);opacity:0;transition:opacity 0.3s"></div>
+<div id="featureModal" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-44%) scale(0.95);z-index:401;width:min(680px,92vw);background:#fff;border-radius:24px;box-shadow:0 32px 80px rgba(0,0,0,0.22);overflow:hidden;transition:transform 0.35s cubic-bezier(0.22,1,0.36,1),opacity 0.35s;opacity:0">
+  <div id="fmHeader" style="padding:2.5rem 2.5rem 1.5rem;position:relative">
+    <button onclick="closeFeature()" style="position:absolute;top:1.2rem;right:1.2rem;background:rgba(10,10,15,0.07);border:none;border-radius:50%;width:36px;height:36px;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s" onmouseover="this.style.background='rgba(10,10,15,0.14)'" onmouseout="this.style.background='rgba(10,10,15,0.07)'">&#x2715;</button>
+    <div id="fmIcon" style="font-size:2.8rem;margin-bottom:0.8rem"></div>
+    <div id="fmTitle" style="font-family:Syne,sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:0.5rem"></div>
+    <div id="fmSub" style="font-size:0.95rem;color:var(--mid);line-height:1.7;max-width:520px"></div>
+  </div>
+  <div id="fmBody" style="padding:0 2.5rem 2.5rem;display:flex;flex-direction:column;gap:0.8rem"></div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────
+const categories = {
+  webdev: {
+    icon:'💻', name:'Web Development', count:48,
+    color:'rgba(42,125,232,0.15)',
+    desc:'Master modern web technologies from HTML & CSS basics to advanced React, Node.js, and full-stack deployment. Build real projects employers love.',
+    filters:['All','Frontend','Backend','Full Stack','React','Node.js'],
+    courses:['fullstack','react-adv','html-css','nodejs','vue','nextjs']
+  },
+  design: {
+    icon:'🎨', name:'UI/UX Design', count:32,
+    color:'rgba(232,77,42,0.15)',
+    desc:'Learn design thinking, wireframing, prototyping, and visual design. Create stunning interfaces with Figma, Adobe XD, and industry best practices.',
+    filters:['All','Figma','Adobe XD','Wireframing','Branding'],
+    courses:['figma','ux-research','graphic-design','motion','branding']
+  },
+  data: {
+    icon:'📊', name:'Data Science', count:27,
+    color:'rgba(240,180,41,0.15)',
+    desc:'Dive into data analysis, visualization, and machine learning. Work with Python, Pandas, SQL, and Power BI to make data-driven decisions.',
+    filters:['All','Python','SQL','Visualization','Statistics'],
+    courses:['data-analysis','sql-mastery','tableau','stats','r-lang']
+  },
+  mobile: {
+    icon:'📱', name:'Mobile Dev', count:21,
+    color:'rgba(100,200,100,0.15)',
+    desc:'Build cross-platform and native mobile apps for iOS and Android using React Native, Flutter, Swift, and Kotlin.',
+    filters:['All','React Native','Flutter','iOS','Android'],
+    courses:['react-native','flutter','swift','kotlin','expo']
+  },
+  ai: {
+    icon:'🤖', name:'AI & Machine Learning', count:19,
+    color:'rgba(180,100,230,0.15)',
+    desc:'Explore the cutting edge of AI — from neural networks to LLMs. Learn Python, TensorFlow, PyTorch, and prompt engineering.',
+    filters:['All','Python','Deep Learning','NLP','Computer Vision'],
+    courses:['python-ai','tensorflow','nlp','computer-vision','llm-prompt']
+  },
+  business: {
+    icon:'💼', name:'Business & Finance', count:35,
+    color:'rgba(255,100,130,0.15)',
+    desc:'Grow your business acumen with courses on marketing, entrepreneurship, financial modelling, and product management.',
+    filters:['All','Marketing','Finance','Product','Entrepreneurship'],
+    courses:['digital-marketing','excel-finance','product-mgmt','startup','investing']
+  },
+  writing: {
+    icon:'📝', name:'Content & Writing', count:18,
+    color:'rgba(255,165,0,0.15)',
+    desc:'Craft compelling content for blogs, social media, and brands. Master SEO writing, copywriting, and storytelling techniques.',
+    filters:['All','Copywriting','SEO','Blogging','Social Media'],
+    courses:['copywriting','seo-writing','content-strategy','storytelling']
+  },
+  cyber: {
+    icon:'🔒', name:'Cybersecurity', count:14,
+    color:'rgba(42,232,200,0.15)',
+    desc:'Protect systems and networks with hands-on security skills. Cover ethical hacking, penetration testing, and security fundamentals.',
+    filters:['All','Ethical Hacking','Network Security','Pen Testing','CompTIA'],
+    courses:['ethical-hacking','network-security','comptia','pen-test']
+  }
+};
+
+const courses = {
+  fullstack: {
+    icon:'💻', tag:'Web Dev', title:'Full Stack Web Development Bootcamp 2025',
+    sub:'Go from zero to full-stack developer. Build 10+ real-world projects using HTML, CSS, JavaScript, React, Node.js, Express, and MongoDB.',
+    thumb:'linear-gradient(135deg,#1a1a2e,#2a7de8)', thumbColor:'rgba(42,125,232,0.15)',
+    price:'₹1,499', priceOld:'₹4,999', discount:'70% off', badge:'Bestseller',
+    rating:'★ 4.9', students:'2,300+', duration:'42h', level:'Beginner',
+    instructor:{initials:'VK',name:'Vikas Kumar',bio:'10+ years full-stack dev at top startups. Taught 50k+ students.',grad:'linear-gradient(135deg,#1a1a2e,#2a7de8)'},
+    learn:['Build responsive websites with HTML5 & CSS3','Master JavaScript ES6+ fundamentals','React hooks, context, and state management','REST API development with Node.js & Express','MongoDB & Mongoose database design','Deploy apps to Vercel, Railway & AWS','Git & GitHub workflow for teams','Authentication & JWT security'],
+    modules:['Introduction & Setup (3 lessons)','HTML & CSS Deep Dive (12 lessons)','JavaScript Mastery (18 lessons)','React & State Management (15 lessons)','Backend with Node.js (14 lessons)','Database Design (10 lessons)','Capstone Projects (6 lessons)'],
+    includes:['42 hours on-demand video','15 downloadable projects','Certificate of completion','Discord community access','Lifetime access + updates']
+  },
+  figma: {
+    icon:'🎨', tag:'Design', title:'Figma UI/UX Design — Zero to Professional',
+    sub:'Master Figma from scratch. Learn design systems, auto layout, prototyping, and client-ready handoffs used at top design agencies.',
+    thumb:'linear-gradient(135deg,#2d1b5e,#e84d2a)', thumbColor:'rgba(232,77,42,0.15)',
+    price:'₹1,199', priceOld:'₹3,999', discount:'70% off', badge:'New',
+    rating:'★ 4.8', students:'1,700+', duration:'28h', level:'Beginner',
+    instructor:{initials:'SP',name:'Sneha Patel',bio:'Lead UX Designer at a Fortune 500 company. Figma certified expert.',grad:'linear-gradient(135deg,#2d1b5e,#e84d2a)'},
+    learn:['Figma interface & collaboration tools','Auto Layout & component variants','Design tokens & design systems','Wireframing & user flows','High-fidelity prototyping','Micro-interactions & animations','Developer handoff with Inspect','Case study portfolio creation'],
+    modules:['Figma Basics (5 lessons)','Components & Variants (8 lessons)','Auto Layout Mastery (6 lessons)','Prototyping & Interactions (7 lessons)','Design Systems (9 lessons)','Real Project: App Redesign (5 lessons)'],
+    includes:['28 hours on-demand video','10 Figma project files','Certificate of completion','Portfolio review session','Lifetime access + updates']
+  },
+  'python-ai': {
+    icon:'🤖', tag:'AI / ML', title:'Python for AI & Machine Learning — Complete Guide',
+    sub:'Comprehensive coverage of Python for AI — from NumPy and Pandas basics to training neural networks and deploying models to production.',
+    thumb:'linear-gradient(135deg,#0f3460,#f0b429)', thumbColor:'rgba(240,180,41,0.15)',
+    price:'₹1,799', priceOld:'₹5,999', discount:'70% off', badge:'Trending',
+    rating:'★ 5.0', students:'984+', duration:'38h', level:'Intermediate',
+    instructor:{initials:'AM',name:'Aryan Mishra',bio:'AI researcher & ML engineer. PhD in Computer Science, IIT Delhi.',grad:'linear-gradient(135deg,#0f3460,#f0b429)'},
+    learn:['Python for data science foundations','NumPy, Pandas & Matplotlib','Machine learning with Scikit-learn','Neural networks with TensorFlow & Keras','Natural language processing (NLP)','Computer vision with OpenCV','Model deployment with FastAPI','Building LLM-powered applications'],
+    modules:['Python Foundations (8 lessons)','Data Science Toolkit (10 lessons)','Machine Learning Algorithms (12 lessons)','Deep Learning & Neural Networks (11 lessons)','NLP & Computer Vision (9 lessons)','Model Deployment (7 lessons)'],
+    includes:['38 hours on-demand video','Jupyter notebooks & datasets','Certificate of completion','Kaggle challenge walkthroughs','Lifetime access + updates']
+  },
+  'react-adv': {
+    icon:'⚛️', tag:'Frontend', title:'Advanced React & Next.js — Production Patterns',
+    sub:'Level up your React skills with performance optimisation, advanced hooks, server components, and Next.js App Router.',
+    thumb:'linear-gradient(135deg,#0a0a0f,#61dafb)', thumbColor:'rgba(97,218,251,0.15)',
+    price:'₹1,299', priceOld:'₹4,499', discount:'71% off', badge:'Hot',
+    rating:'★ 4.9', students:'1,100+', duration:'22h', level:'Advanced',
+    instructor:{initials:'RJ',name:'Rohit Jain',bio:'Senior Frontend Engineer at Razorpay. React open-source contributor.',grad:'linear-gradient(135deg,#0a0a0f,#61dafb)'},
+    learn:['Custom hooks & advanced patterns','React Server Components (RSC)','Next.js App Router & file-based routing','Data fetching strategies','Performance & code splitting','Zustand & Jotai state management','Testing with Vitest & Testing Library','CI/CD pipelines for React apps'],
+    modules:['Advanced Hooks Deep Dive (6 lessons)','Next.js App Router (9 lessons)','State Management (5 lessons)','Performance Optimisation (7 lessons)','Testing Strategies (6 lessons)','Production Deployment (4 lessons)'],
+    includes:['22 hours on-demand video','8 production-ready starter kits','Certificate of completion','Code review sessions','Lifetime access + updates']
+  },
+  'data-analysis': {
+    icon:'📊', tag:'Data', title:'Data Analysis with Python & Power BI',
+    sub:'Learn to collect, clean, analyse, and visualise data. Build executive dashboards and tell compelling stories with data.',
+    thumb:'linear-gradient(135deg,#1a3a5c,#f0b429)', thumbColor:'rgba(240,180,41,0.15)',
+    price:'₹1,099', priceOld:'₹3,499', discount:'69% off', badge:'Popular',
+    rating:'★ 4.7', students:'890+', duration:'18h', level:'Beginner',
+    instructor:{initials:'NK',name:'Neha Kapoor',bio:'Data analyst at Flipkart. 6 years experience in business intelligence.',grad:'linear-gradient(135deg,#1a3a5c,#f0b429)'},
+    learn:['Excel & Google Sheets for analysis','Python Pandas data wrangling','Matplotlib & Seaborn visualizations','SQL for data extraction','Power BI dashboard design','Statistical analysis basics','A/B testing & hypothesis testing','Storytelling with data presentations'],
+    modules:['Excel Foundations (5 lessons)','Python for Analysis (10 lessons)','SQL Deep Dive (8 lessons)','Power BI Dashboards (7 lessons)','Statistics & Testing (5 lessons)','Capstone Project (3 lessons)'],
+    includes:['18 hours on-demand video','Real datasets & case studies','Certificate of completion','Dashboard templates','Lifetime access + updates']
+  },
+  'ethical-hacking': {
+    icon:'🔒', tag:'Security', title:'Ethical Hacking & Penetration Testing',
+    sub:'Learn to think like a hacker. Discover vulnerabilities, test defences, and protect systems with industry-standard tools and methodologies.',
+    thumb:'linear-gradient(135deg,#0d1b2a,#42e8c0)', thumbColor:'rgba(42,232,200,0.15)',
+    price:'₹1,599', priceOld:'₹5,499', discount:'71% off', badge:'In Demand',
+    rating:'★ 4.8', students:'620+', duration:'32h', level:'Intermediate',
+    instructor:{initials:'KS',name:'Karan Singh',bio:'Certified Ethical Hacker (CEH). 8 years in cybersecurity consulting.',grad:'linear-gradient(135deg,#0d1b2a,#42e8c0)'},
+    learn:['Networking fundamentals & TCP/IP','Kali Linux environment setup','Reconnaissance & OSINT techniques','Scanning with Nmap & Nessus','Web application vulnerabilities (OWASP)','Metasploit Framework basics','Wireless network attacks','Writing professional pentest reports'],
+    modules:['Security Fundamentals (6 lessons)','Kali Linux Setup (4 lessons)','Reconnaissance (8 lessons)','Exploitation Techniques (12 lessons)','Web App Security (9 lessons)','Report Writing (4 lessons)'],
+    includes:['32 hours on-demand video','Kali Linux lab environment','Certificate of completion','CTF challenge walkthroughs','Lifetime access + updates']
+  }
+};
+
+// Fill in remaining courses as generics
+['html-css','nodejs','vue','nextjs','ux-research','graphic-design','motion','branding',
+ 'sql-mastery','tableau','stats','r-lang','react-native','flutter','swift','kotlin','expo',
+ 'tensorflow','nlp','computer-vision','llm-prompt','digital-marketing','excel-finance',
+ 'product-mgmt','startup','investing','copywriting','seo-writing','content-strategy',
+ 'storytelling','network-security','comptia','pen-test'].forEach(id => {
+  if (!courses[id]) {
+    const names = {
+      'html-css':'HTML & CSS Mastery','nodejs':'Node.js Backend Development','vue':'Vue.js — The Complete Course',
+      'nextjs':'Next.js Fundamentals','ux-research':'UX Research & User Testing','graphic-design':'Graphic Design Essentials',
+      'motion':'Motion Design with After Effects','branding':'Brand Identity Design','sql-mastery':'SQL for Data Professionals',
+      'tableau':'Tableau Desktop Specialist','stats':'Statistics for Data Science','r-lang':'R Programming for Analytics',
+      'react-native':'React Native Mobile Apps','flutter':'Flutter & Dart Complete Guide','swift':'iOS Dev with Swift',
+      'kotlin':'Android Dev with Kotlin','expo':'Expo & React Native','tensorflow':'Deep Learning with TensorFlow',
+      'nlp':'Natural Language Processing','computer-vision':'Computer Vision with OpenCV','llm-prompt':'Prompt Engineering for LLMs',
+      'digital-marketing':'Digital Marketing Masterclass','excel-finance':'Excel for Finance & Accounting',
+      'product-mgmt':'Product Management Essentials','startup':'Startup Fundamentals','investing':'Stock Market & Investing',
+      'copywriting':'Copywriting That Converts','seo-writing':'SEO Writing & Content','content-strategy':'Content Strategy & Planning',
+      'storytelling':'Storytelling & Narrative','network-security':'Network Security Fundamentals',
+      'comptia':'CompTIA Security+ Prep','pen-test':'Web Penetration Testing'
+    };
+    const icons = {'html-css':'🌐','nodejs':'🟢','vue':'💚','nextjs':'▲','ux-research':'🔍','graphic-design':'🖌️','motion':'🎬','branding':'✨','sql-mastery':'🗄️','tableau':'📉','stats':'📐','r-lang':'📈','react-native':'📱','flutter':'🐦','swift':'🍎','kotlin':'🤖','expo':'⚡','tensorflow':'🧠','nlp':'💬','computer-vision':'👁️','llm-prompt':'🔮','digital-marketing':'📣','excel-finance':'💰','product-mgmt':'🗂️','startup':'🚀','investing':'📈','copywriting':'✍️','seo-writing':'🔍','content-strategy':'📋','storytelling':'📖','network-security':'🛡️','comptia':'🏅','pen-test':'🕵️'};
+    const prices = [899,999,1099,1199,1299,1399,1499];
+    const oldPrices = [2999,3499,3999,4499,4999];
+    const p = prices[Math.floor(Math.random()*prices.length)];
+    const op = oldPrices[Math.floor(Math.random()*oldPrices.length)];
+    courses[id] = {
+      icon: icons[id]||'📚', tag:'Course', title: names[id]||id,
+      sub:`Master ${names[id]||id} with hands-on projects and real-world examples. Go from beginner to job-ready.`,
+      thumb:`linear-gradient(135deg,#1a1a2e,#2a7de8)`, thumbColor:'rgba(42,125,232,0.12)',
+      price:`₹${p}`, priceOld:`₹${op}`, discount:`${Math.round((1-p/op)*100)}% off`, badge:'Popular',
+      rating:`★ 4.${Math.floor(Math.random()*2)+7}`, students:`${Math.floor(Math.random()*1000)+200}+`, duration:`${Math.floor(Math.random()*20)+10}h`, level:['Beginner','Intermediate','All Levels'][Math.floor(Math.random()*3)],
+      instructor:{initials:'AG',name:'AGYASHCourse Instructor',bio:'Expert practitioner with 5+ years of industry experience.',grad:'linear-gradient(135deg,var(--accent),var(--accent2))'},
+      learn:['Core fundamentals & concepts','Hands-on project work','Industry best practices','Real-world case studies','Portfolio-ready projects','Expert tips & tricks'],
+      modules:['Module 1: Foundations (6 lessons)','Module 2: Core Skills (8 lessons)','Module 3: Advanced Topics (7 lessons)','Module 4: Projects (5 lessons)'],
+      includes:[`${Math.floor(Math.random()*20)+10} hours on-demand video`,'Downloadable resources','Certificate of completion','Lifetime access + updates']
+    };
+  }
+});
+
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+let currentCategory = null;
+let fromCategory = false;
+
+// ─────────────────────────────────────────────
+// ALL CATEGORIES VIEW
+// ─────────────────────────────────────────────
+function openAllCategories() {
+  currentCategory = 'all';
+
+  document.getElementById('listingIcon').textContent = '🎓';
+  document.getElementById('listingTitle').textContent = 'All Courses';
+  document.getElementById('listingDesc').textContent = 'Browse every course across all categories — from Web Development and Design to AI, Business, Cybersecurity, and more.';
+  document.getElementById('listingBreadcrumb').textContent = 'All Courses';
+  document.getElementById('listingCount').textContent = Object.values(categories).reduce((a,c)=>a+c.count,0);
+  document.getElementById('listingHero').style.setProperty('--listing-color', 'rgba(240,180,41,0.18)');
+
+  // Filters = all category names
+  const filterEl = document.getElementById('listingFilter');
+  filterEl.innerHTML = ['All', ...Object.values(categories).map(c=>c.name)]
+    .map((f,i) => `<button class="filter-pill ${i===0?'active':''}" onclick="filterAllCourses(this,'${f}')">${f}</button>`)
+    .join('');
+
+  // Show all courses
+  const allIds = Object.values(categories).flatMap(c => c.courses);
+  // deduplicate
+  const unique = [...new Set(allIds)];
+  renderListingGrid(unique);
+
+  document.getElementById('listingOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function filterAllCourses(el, filter) {
+  document.querySelectorAll('#listingFilter .filter-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+
+  let ids;
+  if (filter === 'All') {
+    ids = [...new Set(Object.values(categories).flatMap(c => c.courses))];
+  } else {
+    const cat = Object.values(categories).find(c => c.name === filter);
+    ids = cat ? cat.courses : [];
+  }
+  renderListingGrid(ids);
+}
+
+// ─────────────────────────────────────────────
+// CATEGORY LISTING
+// ─────────────────────────────────────────────
+function openCategory(catId) {
+  const cat = categories[catId];
+  currentCategory = catId;
+
+  // Highlight active card
+  document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active-cat'));
+  event.currentTarget.classList.add('active-cat');
+
+  // Set hero
+  document.getElementById('listingIcon').textContent = cat.icon;
+  document.getElementById('listingTitle').textContent = cat.name;
+  document.getElementById('listingDesc').textContent = cat.desc;
+  document.getElementById('listingBreadcrumb').textContent = cat.name;
+  document.getElementById('listingCount').textContent = cat.count;
+  document.getElementById('listingHero').style.setProperty('--listing-color', cat.color);
+
+  // Filters
+  const filterEl = document.getElementById('listingFilter');
+  filterEl.innerHTML = cat.filters.map((f,i) =>
+    `<button class="filter-pill ${i===0?'active':''}" onclick="togglePill(this)">${f}</button>`
+  ).join('');
+
+  // Course grid
+  renderListingGrid(cat.courses);
+
+  // Open
+  document.getElementById('listingOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderListingGrid(courseIds) {
+  const grid = document.getElementById('listingGrid');
+  grid.innerHTML = courseIds.map((id, i) => {
+    const c = courses[id];
+    if (!c) return '';
+    return `
+      <div class="course-card card-in" style="animation-delay:${i*0.07}s" onclick="openCourse('${id}', true)">
+        <div class="cc-thumb" style="background:${c.thumb}">
+          <span>${c.icon}</span>
+          <span class="cc-badge">${c.badge}</span>
+        </div>
+        <div class="cc-body">
+          <div class="cc-meta"><span class="cc-cat">${c.tag}</span><span class="cc-stars">${c.rating}</span></div>
+          <div class="cc-title">${c.title}</div>
+          <div class="cc-footer">
+            <div class="cc-price"><span>${c.priceOld}</span>${c.price}</div>
+            <span class="cc-enroll">View Course →</span>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function closeListing() {
+  document.getElementById('listingOverlay').classList.remove('open');
+  document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active-cat'));
+  document.body.style.overflow = '';
+}
+
+function togglePill(el) {
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ─────────────────────────────────────────────
+// COURSE DETAIL
+// ─────────────────────────────────────────────
+function openCourse(courseId, fromCat = false) {
+  const c = courses[courseId];
+  if (!c) return;
+  fromCategory = fromCat;
+
+  document.getElementById('detailBackLabel').textContent = fromCat ? `Back to ${categories[currentCategory]?.name || 'Courses'}` : 'Back to Home';
+
+  // Hero
+  document.getElementById('detailTag').textContent = c.tag;
+  document.getElementById('detailTitle').textContent = c.title;
+  document.getElementById('detailSub').textContent = c.sub;
+  document.getElementById('dRating').textContent = c.rating;
+  document.getElementById('dStudents').textContent = c.students;
+  document.getElementById('dDuration').textContent = c.duration;
+  document.getElementById('dLevel').textContent = c.level;
+  document.getElementById('detailHero').style.setProperty('--listing-color', c.thumbColor);
+
+  // Enroll card
+  const thumb = document.getElementById('detailThumb');
+  thumb.style.background = c.thumb;
+  thumb.textContent = c.icon;
+  document.getElementById('detailPrice').textContent = c.price;
+  document.getElementById('detailPriceOld').textContent = c.priceOld;
+  document.getElementById('detailDiscount').textContent = c.discount;
+  document.getElementById('detailBtnPrice').textContent = c.price;
+
+  // Learn
+  document.getElementById('learnGrid').innerHTML = c.learn.map(l => `<div class="learn-item">${l}</div>`).join('');
+
+  // Curriculum
+  document.getElementById('curriculumList').innerHTML = c.modules.map(m => `
+    <div class="module">
+      <div class="module-header">
+        <span class="module-name">${m.split('(')[0].trim()}</span>
+        <span class="module-lessons">${m.match(/\(([^)]+)\)/)?.[1] || ''}</span>
+      </div>
+    </div>`).join('');
+
+  // Instructor
+  document.getElementById('instrAvatar').textContent = c.instructor.initials;
+  document.getElementById('instrAvatar').style.background = c.instructor.grad;
+  document.getElementById('instrName').textContent = c.instructor.name;
+  document.getElementById('instrBio').textContent = c.instructor.bio;
+
+  // Includes
+  const icons = ['🎬','📁','🏆','💬','♾️'];
+  document.getElementById('includeList').innerHTML = c.includes.map((item, i) =>
+    `<li><span>${icons[i]||'✓'}</span>${item}</li>`).join('');
+
+  document.getElementById('detailOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('detailOverlay').scrollTop = 0;
+}
+
+function closeDetail() {
+  document.getElementById('detailOverlay').classList.remove('open');
+  if (!fromCategory) document.body.style.overflow = '';
+}
+
+// ─────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+reveals.forEach(r => observer.observe(r));
+
+// ─────────────────────────────────────────────
+// FEATURED COURSES FILTER
+// ─────────────────────────────────────────────
+const featuredCourseMap = {
+  All:         ['fullstack','figma','python-ai','react-adv','data-analysis','ethical-hacking'],
+  Development: ['fullstack','react-adv','nodejs','nextjs','html-css','vue'],
+  Design:      ['figma','ux-research','graphic-design','motion','branding'],
+  Data:        ['data-analysis','python-ai','sql-mastery','tableau','stats'],
+  Business:    ['digital-marketing','excel-finance','product-mgmt','startup','investing']
+};
+
+function setFeaturedFilter(filter) {
+  document.querySelectorAll('#featuredFilterBar .filter-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim() === filter);
   });
+
+  const ids = featuredCourseMap[filter] || featuredCourseMap['All'];
+  const grid = document.getElementById('featuredGrid');
+
+  grid.style.opacity = '0';
+  grid.style.transform = 'translateY(10px)';
+  grid.style.transition = 'opacity 0.2s, transform 0.2s';
+
+  setTimeout(() => {
+    grid.innerHTML = ids.map((id, i) => {
+      const c = courses[id];
+      if (!c) return '';
+      return `
+        <div class="course-card" style="animation:fadeUp 0.35s ${i*0.07}s ease both;opacity:0" onclick="openCourse('${id}')">
+          <div class="cc-thumb" style="background:${c.thumb}">
+            <span>${c.icon}</span>
+            <span class="cc-badge">${c.badge}</span>
+          </div>
+          <div class="cc-body">
+            <div class="cc-meta"><span class="cc-cat">${c.tag}</span><span class="cc-stars">${c.rating}</span></div>
+            <div class="cc-title">${c.title}</div>
+            <div class="cc-footer">
+              <div class="cc-price"><span>${c.priceOld}</span>${c.price}</div>
+              <span class="cc-enroll">Enroll Now →</span>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+    grid.style.opacity = '1';
+    grid.style.transform = 'translateY(0)';
+  }, 200);
+}
+
+// Init on page load
+setFeaturedFilter('All');
+
+// ─────────────────────────────────────────────
+// FEATURE MODAL DATA
+// ─────────────────────────────────────────────
+const featureData = {
+  progress: {
+    icon: '📈',
+    title: 'Track Your Progress',
+    sub: 'Stay motivated and on-track with powerful visual dashboards that show exactly where you are in every course — and what to tackle next.',
+    headerBg: 'linear-gradient(135deg,#0a0a0f,#1a3a5c)',
+    headerColor: '#f4f1eb',
+    points: [
+      { icon:'📊', title:'Personal Dashboard', desc:'See all your enrolled courses, completion percentages, and total learning hours in one clean view.' },
+      { icon:'🏅', title:'Milestone Badges', desc:'Earn badges as you complete modules, hit streaks, and finish courses — every win is celebrated.' },
+      { icon:'📅', title:'Daily Learning Streaks', desc:'Build consistent habits with streak tracking. Set daily goals and get gentle reminders to keep going.' },
+      { icon:'📉', title:'Analytics & Insights', desc:'Understand your learning patterns — peak focus hours, average session length, and areas to improve.' },
+      { icon:'🔔', title:'Smart Nudges', desc:'Receive personalised notifications when you fall behind or are close to completing a milestone.' }
+    ],
+    cta: { label:'View Demo Dashboard', action:"showToast('📊 Dashboard preview coming soon!')" }
+  },
+  paths: {
+    icon: '🗺️',
+    title: 'Learning Paths',
+    sub: 'Stop guessing what to learn next. Our expert-curated roadmaps guide you step-by-step from total beginner to job-ready professional.',
+    headerBg: 'linear-gradient(135deg,#2d1b5e,#e84d2a)',
+    headerColor: '#fff',
+    points: [
+      { icon:'🚀', title:'Role-Based Roadmaps', desc:'Paths designed for specific goals — Frontend Developer, Data Analyst, UX Designer, ML Engineer, and more.' },
+      { icon:'🔗', title:'Sequential Curriculum', desc:'Courses are ordered intelligently so each one builds on the last. No gaps, no confusion.' },
+      { icon:'⏱️', title:'Estimated Completion Times', desc:'Each path shows a realistic timeline — most learners complete a path in 8–16 weeks at their own pace.' },
+      { icon:'🎯', title:'Skill-Gap Analysis', desc:'Take a quick assessment and get a personalised path recommendation based on what you already know.' },
+      { icon:'🏆', title:'Path Completion Certificate', desc:'Finish a full learning path and earn a special certificate recognised by 500+ hiring partners.' }
+    ],
+    cta: { label:'Explore All Paths', action:"openCategory('webdev')" }
+  },
+  lifetime: {
+    icon: '♾️',
+    title: 'Lifetime Access',
+    sub: 'Pay once, own it forever. Every course you enrol in is yours for life — no subscriptions, no renewals, no surprises.',
+    headerBg: 'linear-gradient(135deg,#0f3460,#2a7de8)',
+    headerColor: '#fff',
+    points: [
+      { icon:'💳', title:'One-Time Payment', desc:'No monthly fees. Pay for a course once and access it forever — even if the price goes up later.' },
+      { icon:'📱', title:'All Devices, Anytime', desc:'Watch on your phone, tablet, laptop, or desktop. Your progress syncs automatically across all devices.' },
+      { icon:'⬇️', title:'Offline Downloads', desc:'Download videos and resources to learn on the go — even without an internet connection.' },
+      { icon:'🔄', title:'Free Future Updates', desc:'When a course gets updated with new content, you receive the additions completely free.' },
+      { icon:'👨‍👩‍👧', title:'Shareable Within Your Team', desc:'Enrol once and share access with up to 2 team members on the same plan at no extra cost.' }
+    ],
+    cta: { label:'See Pricing Plans', action:"showToast('💳 Pricing page coming soon!')" }
+  },
+  updates: {
+    icon: '🔄',
+    title: 'Always Updated',
+    sub: 'Technology moves fast — so do we. Every course on AGYASHCourse is actively maintained to reflect the latest tools, frameworks, and industry standards.',
+    headerBg: 'linear-gradient(135deg,#1a3a2a,#2ecc71)',
+    headerColor: '#fff',
+    points: [
+      { icon:'📅', title:'Weekly Content Drops', desc:'New lessons, bonus modules, and mini-courses are added every single week across all categories.' },
+      { icon:'🔔', title:'Update Notifications', desc:'Get notified the moment a course you own receives new content, so you never miss an improvement.' },
+      { icon:'🧪', title:'Tested for Accuracy', desc:'Every update is reviewed by industry practitioners before going live — no outdated tutorials here.' },
+      { icon:'💬', title:'Community-Driven Improvements', desc:'Learners vote on what gets updated first. Your feedback directly shapes the course content.' },
+      { icon:'📰', title:'Trend Radar', desc:'Our instructors monitor industry news and add timely content on emerging topics like AI, new frameworks, and tools.' }
+    ],
+    cta: { label:'See What\'s New', action:"showToast('🆕 Changelog page coming soon!')" }
+  }
+};
+
+function openFeature(key) {
+  const d = featureData[key];
+  if (!d) return;
+
+  const modal = document.getElementById('featureModal');
+  const bg = document.getElementById('featureModalBg');
+  const header = document.getElementById('fmHeader');
+
+  document.getElementById('fmIcon').textContent = d.icon;
+  document.getElementById('fmTitle').textContent = d.title;
+  document.getElementById('fmSub').textContent = d.sub;
+  header.style.background = d.headerBg;
+  header.style.color = d.headerColor;
+  document.getElementById('fmTitle').style.color = d.headerColor;
+  document.getElementById('fmSub').style.color = d.headerColor === '#fff' ? 'rgba(255,255,255,0.75)' : 'rgba(10,10,15,0.65)';
+
+  // Close button colour
+  const closeBtn = header.querySelector('button');
+  closeBtn.style.background = 'rgba(255,255,255,0.15)';
+  closeBtn.style.color = d.headerColor;
+
+  const body = document.getElementById('fmBody');
+  body.innerHTML = d.points.map((p, i) => `
+    <div style="display:flex;gap:1rem;align-items:flex-start;background:#f9f8f5;border-radius:14px;padding:1rem 1.1rem;animation:fadeUp 0.35s ${i*0.06}s ease both;opacity:0">
+      <div style="font-size:1.5rem;flex-shrink:0;margin-top:2px">${p.icon}</div>
+      <div>
+        <div style="font-family:Syne,sans-serif;font-weight:700;font-size:0.9rem;margin-bottom:0.25rem">${p.title}</div>
+        <div style="font-size:0.84rem;color:var(--mid);line-height:1.6">${p.desc}</div>
+      </div>
+    </div>`).join('') +
+    `<button onclick="${d.cta.action}" style="margin-top:0.4rem;background:var(--accent);color:#fff;font-family:Syne,sans-serif;font-weight:700;font-size:0.88rem;padding:0.85rem 1.8rem;border-radius:100px;border:none;cursor:pointer;align-self:flex-start;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 18px rgba(232,77,42,0.3)" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">${d.cta.label} →</button>`;
+
+  bg.style.display = 'block';
+  modal.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+
+  requestAnimationFrame(() => {
+    bg.style.opacity = '1';
+    modal.style.opacity = '1';
+    modal.style.transform = 'translate(-50%,-50%) scale(1)';
+  });
+}
+
+function closeFeature() {
+  const modal = document.getElementById('featureModal');
+  const bg = document.getElementById('featureModalBg');
+  bg.style.opacity = '0';
+  modal.style.opacity = '0';
+  modal.style.transform = 'translate(-50%,-47%) scale(0.96)';
+  setTimeout(() => {
+    modal.style.display = 'none';
+    bg.style.display = 'none';
+    document.body.style.overflow = '';
+  }, 320);
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFeature(); });
 </script>
 </body>
 </html>
